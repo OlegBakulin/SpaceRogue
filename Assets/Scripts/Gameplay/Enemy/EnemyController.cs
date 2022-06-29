@@ -1,5 +1,7 @@
 using Abstracts;
 using Gameplay.Enemy.Behaviour;
+using Gameplay.Enemy.Movement;
+using Gameplay.Player;
 using Gameplay.Shooting;
 using Scriptables.Enemy;
 using Utilities.Reactive.SubscriptionProperty;
@@ -12,11 +14,14 @@ namespace Gameplay.Enemy
         private readonly EnemyView _view;
         private readonly EnemyConfig _config;
         private readonly FrontalTurretController _turret;
+        private readonly EnemyMovementController _movementController;
+        private readonly PlayerView _playerView;
         
         private EnemyBehaviour _currentBehaviour;
 
-        public EnemyController(EnemyConfig config, EnemyView view)
+        public EnemyController(EnemyConfig config, EnemyView view, PlayerView playerView)
         {
+            _playerView = playerView;
             _config = config;
             _view = view;
             AddGameObject(_view.gameObject);

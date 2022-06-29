@@ -29,7 +29,7 @@ namespace Gameplay.Enemy
                 for (int i = 0; i < enemyGroupSpawn.GroupCount; i++)
                 {
                     var unitSpawnPoint = GetEmptySpawnPoint(enemyGroupSpawn.GroupSpawnPoint, unitSize, spawnCircleRadius);
-                    var enemyController = _enemyFactory.CreateEnemy(unitSpawnPoint);
+                    var enemyController = _enemyFactory.CreateEnemy(unitSpawnPoint, _playerView);
                     AddController(enemyController);
                 }
             }
