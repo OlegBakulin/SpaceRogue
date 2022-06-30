@@ -8,13 +8,13 @@ using Utilities.Unity;
 
 namespace Gameplay.Enemy
 {
-    public class EnemySpawnController : BaseController
+    public class EnemyForcesController : BaseController
     {
         private readonly ResourcePath _groupSpawnConfigPath = new("Configs/Enemy/EnemySpawnConfig");
         private readonly EnemyFactory _enemyFactory;
         private readonly PlayerView _playerView;
 
-        public EnemySpawnController(PlayerView playerView)
+        public EnemyForcesController(PlayerView playerView)
         {
             _playerView = playerView;
             var groupSpawnConfig = ResourceLoader.LoadObject<EnemySpawnConfig>(_groupSpawnConfigPath);

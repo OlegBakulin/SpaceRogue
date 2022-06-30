@@ -1,14 +1,16 @@
+using Gameplay.Enemy.Movement;
+using Gameplay.Player;
 using Utilities.Reactive.SubscriptionProperty;
 
 namespace Gameplay.Enemy.Behaviour
 {
     public class EnemyRoamingBehaviour : EnemyBehaviour
     {
-        private readonly EnemyView _view;
+        private readonly EnemyMovementModel _movementModel;
         
-        public EnemyRoamingBehaviour(SubscribedProperty<EnemyState> enemyState, EnemyView view) : base(enemyState)
+        public EnemyRoamingBehaviour(SubscribedProperty<EnemyState> enemyState, PlayerView playerView, EnemyMovementModel movementModel) : base(enemyState, playerView)
         {
-            _view = view;
+            _movementModel = movementModel;
         }
         
         protected override void OnUpdate()

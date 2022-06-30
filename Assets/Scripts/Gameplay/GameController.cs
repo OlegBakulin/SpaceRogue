@@ -12,7 +12,7 @@ namespace Gameplay
         private readonly CurrentState _currentState;
         private readonly PlayerController _playerController;
         private readonly SpaceController _spaceController;
-        private readonly EnemySpawnController _enemySpawnController;
+        private readonly EnemyForcesController _enemyForcesController;
         private readonly CameraController _cameraController;
         private readonly PlayerStatusBarController _PlayerStatusBarController;
 
@@ -32,8 +32,8 @@ namespace Gameplay
             _spaceController = new SpaceController();
             AddController(_spaceController);
 
-            _enemySpawnController = new EnemySpawnController(_playerController.View);
-            AddController(_enemySpawnController);
+            _enemyForcesController = new EnemyForcesController(_playerController.View);
+            AddController(_enemyForcesController);
         }
     }
 }
