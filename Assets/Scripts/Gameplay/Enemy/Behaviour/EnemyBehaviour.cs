@@ -28,7 +28,7 @@ namespace Gameplay.Enemy.Behaviour
 
         protected void ChangeState(EnemyState newState)
         {
-            _enemyState.Value = newState;
+            if (newState != _enemyState.Value) _enemyState.Value = newState;
         }
         
         protected abstract void OnUpdate();

@@ -7,14 +7,13 @@ namespace Gameplay.Enemy.Behaviour
 {
     public class EnemyCombatBehaviour : EnemyBehaviour
     {
-        
-        private readonly EnemyMovementModel _movementModel;
+        private readonly EnemyMovementController _movementController;
         private readonly FrontalTurretController _frontalTurret;
         private readonly PlayerView _target;
         
-        public EnemyCombatBehaviour(SubscribedProperty<EnemyState> enemyState, PlayerView playerView, EnemyMovementModel movementModel, FrontalTurretController frontalTurret) : base(enemyState, playerView)
+        public EnemyCombatBehaviour(SubscribedProperty<EnemyState> enemyState, PlayerView playerView, EnemyMovementController movementController, FrontalTurretController frontalTurret) : base(enemyState, playerView)
         {
-            _movementModel = movementModel;
+            _movementController = movementController;
             _frontalTurret = frontalTurret;
         }
 

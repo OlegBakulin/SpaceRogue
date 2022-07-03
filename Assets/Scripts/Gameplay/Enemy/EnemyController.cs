@@ -25,11 +25,10 @@ namespace Gameplay.Enemy
             _turret = new FrontalTurretController(_config.Weapon, _view.transform);
             AddController(_turret);
 
-            var movementModel = new EnemyMovementModel(_config.Movement);
-            _movementController = new EnemyMovementController(_view, movementModel);
+            _movementController = new EnemyMovementController(_view, _config.Movement);
             AddController(_movementController);
 
-            _behaviourController = new EnemyBehaviourController(movementModel, _turret, _playerView);
+            _behaviourController = new EnemyBehaviourController(_movementController, _turret, _playerView);
             AddController(_behaviourController);
         }
     }

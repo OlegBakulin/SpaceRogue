@@ -6,11 +6,11 @@ namespace Gameplay.Enemy.Behaviour
 {
     public class EnemyRoamingBehaviour : EnemyBehaviour
     {
-        private readonly EnemyMovementModel _movementModel;
+        private readonly EnemyMovementController _movementController;
         
-        public EnemyRoamingBehaviour(SubscribedProperty<EnemyState> enemyState, PlayerView playerView, EnemyMovementModel movementModel) : base(enemyState, playerView)
+        public EnemyRoamingBehaviour(SubscribedProperty<EnemyState> enemyState, PlayerView playerView, EnemyMovementController movementController) : base(enemyState, playerView)
         {
-            _movementModel = movementModel;
+            _movementController = movementController;
         }
         
         protected override void OnUpdate()

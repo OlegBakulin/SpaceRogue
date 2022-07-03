@@ -9,15 +9,15 @@ namespace Gameplay.Enemy.Behaviour
     public class EnemyBehaviourController : BaseController
     {
         private readonly SubscribedProperty<EnemyState> _enemyCurrentState;
-        private readonly EnemyMovementModel _movementModel;
+        private readonly EnemyMovementController _movementController;
         private readonly FrontalTurretController _turretController;
         private readonly PlayerView _playerView;
         
         private EnemyBehaviour _currentBehaviour;
 
-        public EnemyBehaviourController(EnemyMovementModel movementModel, FrontalTurretController turretController, PlayerView playerView)
+        public EnemyBehaviourController(EnemyMovementController movementController, FrontalTurretController turretController, PlayerView playerView)
         {
-            _movementModel = movementModel;
+            _movementController = movementController;
             _turretController = turretController;
             _playerView = playerView;
 
@@ -42,10 +42,10 @@ namespace Gameplay.Enemy.Behaviour
                     _currentBehaviour = new EnemyIdleBehaviour(_enemyCurrentState, _playerView);
                     break;
                 case EnemyState.PassiveRoaming:
-                    _currentBehaviour = new EnemyRoamingBehaviour(_enemyCurrentState, _playerView, _movementModel);
+                    _currentBehaviour = new EnemyRoamingBehaviour(_enemyCurrentState, _playerView, _movementController);
                     break;
                 case EnemyState.InCombat:
-                    _currentBehaviour = new EnemyCombatBehaviour(_enemyCurrentState, _playerView, _movementModel, _turretController);
+                    _currentBehaviour = new EnemyCombatBehaviour(_enemyCurrentState, _playerView, _movementController, _turretController);
                     break;
                 default: return;
             }
