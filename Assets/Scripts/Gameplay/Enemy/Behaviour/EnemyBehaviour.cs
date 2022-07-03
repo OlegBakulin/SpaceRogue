@@ -18,12 +18,14 @@ namespace Gameplay.Enemy.Behaviour
             _isDisposed = true;
 
             OnDispose();
+            EntryPoint.UnsubscribeFromUpdate(OnUpdate);
         }
 
         protected EnemyBehaviour(SubscribedProperty<EnemyState> enemyState, PlayerView playerView)
         {
             _enemyState = enemyState;
             _playerView = playerView;
+            EntryPoint.SubscribeToUpdate(OnUpdate);
         }
 
         protected void ChangeState(EnemyState newState)
