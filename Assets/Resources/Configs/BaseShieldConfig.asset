@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BaseShieldConfig
   m_EditorClassIdentifier: 
   <Id>k__BackingField: base-shield-00
-  <ShieldAmount>k__BackingField: 1
-  <Cooldown>k__BackingField: 0.1
+  <ShieldAmount>k__BackingField: 100
+  <Cooldown>k__BackingField: 1

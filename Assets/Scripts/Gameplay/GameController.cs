@@ -14,7 +14,6 @@ namespace Gameplay
         private readonly SpaceController _spaceController;
         private readonly EnemyForcesController _enemyForcesController;
         private readonly CameraController _cameraController;
-        private readonly PlayerStatusBarController _PlayerStatusBarController;
 
         public GameController(CurrentState currentState)
         {
@@ -25,9 +24,6 @@ namespace Gameplay
 
             _cameraController = new CameraController(_playerController.View);
             AddController(_cameraController);
-
-            _PlayerStatusBarController = new PlayerStatusBarController();
-            AddController(_PlayerStatusBarController);
 
             _spaceController = new SpaceController();
             AddController(_spaceController);
