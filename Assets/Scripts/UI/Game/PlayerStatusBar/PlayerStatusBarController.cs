@@ -9,11 +9,9 @@ public class PlayerStatusBarController : BaseController
 {
     private readonly ResourcePath healtShieldToolBarPath = new ResourcePath("Prefabs/Canvas/Game/PlayerStatusBar");
     private readonly ResourcePath canvasPath = new ResourcePath("Prefabs/Canvas/Canvas");
-    private readonly ResourcePath shieldPath = new ResourcePath("Assets/Resources/Configs/BaseShieldConfig");
 
     private readonly PlayerStatusBarView healthShieldToolBarView;
     private readonly HealthModel playerHealthShieldModel;
-    private readonly ShieldModuleConfig shieldModuleConfig;
     private readonly Transform barTransform;
 
     private Slider healthToolBarSlider;
@@ -46,6 +44,7 @@ public class PlayerStatusBarController : BaseController
         }
 
         healthToolBarSlider.value = playerHealthShieldModel.CurrentHealth;
+
 
         if (shieldToolBarSlider.maxValue != playerHealthShieldModel.MaximumShield)
         {

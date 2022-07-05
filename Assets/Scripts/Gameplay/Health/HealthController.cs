@@ -22,7 +22,7 @@ namespace Gameplay.Health
 
         protected override void OnDispose()
         {
-            EntryPoint.UnsubscribeFromUpdate(playerStatusBarController.UpdateHealtShieldToolBar);
+            EntryPoint.SubscribeToLateUpdate(playerStatusBarController.UpdateHealtShieldToolBar);
         }
     }
 }
