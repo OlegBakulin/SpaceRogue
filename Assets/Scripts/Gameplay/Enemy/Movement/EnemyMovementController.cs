@@ -39,20 +39,21 @@ namespace Gameplay.Enemy.Movement
             transform.position += forwardDirection * currentSpeed * Time.deltaTime;
         }
         
-        private void HandleTurning(float newInputValue)
+        private void HandleTurning()
         {
-            switch (newInputValue)
+            float turnMultiplier = _model.CurrentTurnRateMultiplier;
+            switch (turnMultiplier)
             {
                 case 0:
                     _model.StopTurning();
                     break;
                 case < 0:
                     _model.Turn(true);
-                    _view.transform.Rotate(Vector3.forward, _model.CurrentTurnRate * newInputValue);
+                    _view.transform.Rotate(Vector3.forward, _model.CurrentTurnRate * turnMultiplier);
                     break;
                 case > 0:
                     _model.Turn(false);
-                    _view.transform.Rotate(Vector3.back, _model.CurrentTurnRate * newInputValue);
+                    _view.transform.Rotate(Vector3.back, _model.CurrentTurnRate * turnMultiplier);
                     break;
             }
         }
