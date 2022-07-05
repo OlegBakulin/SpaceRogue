@@ -1,6 +1,5 @@
 using Abstracts;
 using Gameplay.Health;
-using Scriptables.Modules;
 using UnityEngine;
 using UnityEngine.UI;
 using Utilities.ResourceManagement;
