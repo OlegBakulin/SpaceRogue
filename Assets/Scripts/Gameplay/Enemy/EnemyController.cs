@@ -13,6 +13,7 @@ namespace Gameplay.Enemy
         private readonly EnemyConfig _config;
         private readonly FrontalTurretController _turret;
         private readonly EnemyMovementController _movementController;
+        private readonly EnemyMovementModel _movementModel;
         private readonly EnemyBehaviourController _behaviourController;
         private readonly PlayerView _playerView;
 
@@ -25,10 +26,11 @@ namespace Gameplay.Enemy
             _turret = new FrontalTurretController(_config.Weapon, _view.transform);
             AddController(_turret);
 
-            _movementController = new EnemyMovementController(_view, _config.Movement);
+            _movementModel = new EnemyMovementModel(_config.Movement);
+            _movementController = new EnemyMovementController(_view, _movementModel);
             AddController(_movementController);
 
-            _behaviourController = new EnemyBehaviourController(_movementController, _turret, _playerView);
+            _behaviourController = new EnemyBehaviourController(_movementModel, _view, _turret, _playerView);
             AddController(_behaviourController);
         }
     }

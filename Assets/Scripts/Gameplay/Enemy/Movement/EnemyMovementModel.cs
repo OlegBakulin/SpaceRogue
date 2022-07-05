@@ -9,6 +9,8 @@ namespace Gameplay.Enemy.Movement
         public float MaximumSpeed => _config.maximumSpeed;
         public float CurrentSpeed { get; private set; }
         public float CurrentTurnRate { get; private set; }
+        public float CurrentAcceleration { get; private set; }
+        public float CurrentTurnRateMultiplier { get; private set; }
         
         
         private float TurnSpeedDifference => _config.maximumTurnSpeed - _config.startingTurnSpeed;
@@ -22,19 +24,19 @@ namespace Gameplay.Enemy.Movement
         public void Accelerate(bool movingForward)
         {
             float acceleration = CountAcceleration(_config.maximumSpeed, _config.accelerationTime);
-            acceleration *= movingForward ? 1 : -1;
+            CurrentAcceleration = movingForward ? acceleration : -acceleration;
             float maxSpeed = movingForward ? _config.maximumSpeed : -1 * _config.maximumBackwardSpeed;
 
             switch (movingForward)
             {
                 case true when Mathf.Abs(CurrentSpeed) < Mathf.Abs(maxSpeed):
                 case false when CurrentSpeed > maxSpeed:
-                    CurrentSpeed += acceleration;
+                    CurrentSpeed += CurrentAcceleration;
                     return;
                 case true when Mathf.Abs(CurrentSpeed) > Mathf.Abs(maxSpeed):
                 case false when CurrentSpeed < maxSpeed:
                     CurrentSpeed = maxSpeed;
-                    break;
+                    return;
             }
         }
 
@@ -44,7 +46,7 @@ namespace Gameplay.Enemy.Movement
 
             if (!isContinuingTurn || CurrentTurnRate == 0)
             {
-                float startingTurnSpeed = turningLeft ? -1 * _config.startingTurnSpeed : _config.startingTurnSpeed;
+                float startingTurnSpeed = turningLeft ? -_config.startingTurnSpeed : _config.startingTurnSpeed;
                 CurrentTurnRate = startingTurnSpeed;
                 return;
             }
@@ -65,12 +67,20 @@ namespace Gameplay.Enemy.Movement
             
             if (Mathf.Abs(CurrentTurnRate) > _config.maximumTurnSpeed)
             {
-                CurrentTurnRate = turningLeft ? -1 * _config.maximumTurnSpeed : _config.maximumTurnSpeed;
+                CurrentTurnRate = turningLeft ? -_config.maximumTurnSpeed : _config.maximumTurnSpeed;
             }
         }
-        
-        public void StopTurning() => CurrentTurnRate = 0.0f;
-        public void StopMoving() => CurrentSpeed = 0.0f;
+
+        public void StopTurning()
+        {
+            CurrentTurnRate = 0.0f;
+            CurrentTurnRateMultiplier = 0.0f;
+        } 
+        public void StopMoving()
+        {
+            CurrentSpeed = 0.0f;
+            CurrentAcceleration = 0.0f;
+        }
 
         private static float CountAcceleration(float speedDifference, float accelerationTime)
         {

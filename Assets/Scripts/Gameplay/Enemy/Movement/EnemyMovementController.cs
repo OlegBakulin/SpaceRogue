@@ -1,4 +1,5 @@
 using Abstracts;
+using UnityEngine;
 
 namespace Gameplay.Enemy.Movement
 {
@@ -7,12 +8,53 @@ namespace Gameplay.Enemy.Movement
         private readonly EnemyView _view;
         private readonly EnemyMovementModel _model;
 
-        public EnemyMovementController(EnemyView view, EnemyMovementConfig config)
+        public EnemyMovementController(EnemyView view, EnemyMovementModel model)
         {
             _view = view;
-            _model = new EnemyMovementModel(config);
+            _model = model;
+            EntryPoint.SubscribeToUpdate(HandleMovement);
+            EntryPoint.SubscribeToUpdate(HandleTurning);
+        }
+
+        protected override void OnDispose()
+        {
+            EntryPoint.UnsubscribeFromUpdate(HandleMovement);
+            EntryPoint.UnsubscribeFromUpdate(HandleTurning);
+        }
+
+        private void HandleMovement()
+        {
+            float accelerationValue = _model.CurrentAcceleration;
+            
+            if (accelerationValue != 0)
+            {
+                _model.Accelerate(accelerationValue > 0);
+            }
+            
+            float currentSpeed = _model.CurrentSpeed;
+            if (currentSpeed == 0) return;
+            
+            var transform = _view.transform;
+            var forwardDirection = transform.TransformDirection(Vector3.up);
+            transform.position += forwardDirection * currentSpeed * Time.deltaTime;
         }
         
-        //TODO add model-view linking methods
+        private void HandleTurning(float newInputValue)
+        {
+            switch (newInputValue)
+            {
+                case 0:
+                    _model.StopTurning();
+                    break;
+                case < 0:
+                    _model.Turn(true);
+                    _view.transform.Rotate(Vector3.forward, _model.CurrentTurnRate * newInputValue);
+                    break;
+                case > 0:
+                    _model.Turn(false);
+                    _view.transform.Rotate(Vector3.back, _model.CurrentTurnRate * newInputValue);
+                    break;
+            }
+        }
     }
 }
