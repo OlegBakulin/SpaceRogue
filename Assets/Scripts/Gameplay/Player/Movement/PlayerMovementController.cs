@@ -7,6 +7,7 @@ namespace Gameplay.Player.Movement
 {
     public class PlayerMovementController : BaseController
     {
+        public PlayerMovementModel PlayerMovementModel => _model;
         private readonly SubscribedProperty<float> _horizontalInput;
         private readonly SubscribedProperty<float> _verticalInput;
 

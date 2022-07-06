@@ -3,7 +3,9 @@ guid: 2fe836744aa8fca46851171c792c6a8b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - <HealthSlider>k__BackingField: {fileID: 73371377609994389, guid: 69bc26d25f856ce49a1f108f66f03070, type: 3}
+  - <ShieldSlider>k__BackingField: {fileID: 3757508868194517756, guid: afacc32bad1bef04689c4feb29f8f386, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

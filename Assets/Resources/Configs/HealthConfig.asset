@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: HealthConfig
   m_EditorClassIdentifier: 
   <MaximumHealth>k__BackingField: 1000
-  <StartingHealth>k__BackingField: 1
+  <StartingHealth>k__BackingField: 100
   <HealthRegen>k__BackingField: 1

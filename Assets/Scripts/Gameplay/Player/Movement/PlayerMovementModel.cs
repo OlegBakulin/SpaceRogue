@@ -7,6 +7,7 @@ namespace Gameplay.Player.Movement
     public class PlayerMovementModel
     {
         private readonly EngineModuleConfig _config;
+        public float MaxSpeed => _config.maximumSpeed;
 
         public float CurrentSpeed { get; private set; }
         public float CurrentTurnRate { get; private set; }

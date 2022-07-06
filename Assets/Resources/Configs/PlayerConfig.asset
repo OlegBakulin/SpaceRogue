@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   <Inventory>k__BackingField: {fileID: 11400000, guid: 03ce0e0863b4ca143be37e58bbb847be, type: 2}
+  <HealthConfig>k__BackingField: {fileID: 11400000, guid: b1d5019f03ef14c4c831a0d223b6921a, type: 2}

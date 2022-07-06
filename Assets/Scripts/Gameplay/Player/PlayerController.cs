@@ -39,8 +39,16 @@ namespace Gameplay.Player
             var movementController = AddMovementController(inventoryController.Engine, _view);
             var frontalGunsController = AddFrontalGunsController(inventoryController.Turrets, _view);
             var healthController = AddHealthController(_config.HealthConfig, _config.Inventory.Shields[0]);
+            var canvasController = AddCanvasController(movementController.PlayerMovementModel, healthController);
         }
-        
+
+        private CanvasController AddCanvasController(PlayerMovementModel movementModel, HealthController healthController)
+        {
+            var canvasController = new CanvasController(movementModel, healthController);
+            AddController(canvasController);
+            return canvasController;
+        }
+
         private HealthController AddHealthController(HealthConfig healthConfig, ShieldModuleConfig shieldConfig)
         {
             var healthController = new HealthController(healthConfig, shieldConfig);
