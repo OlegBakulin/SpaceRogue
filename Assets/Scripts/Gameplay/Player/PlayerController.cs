@@ -39,12 +39,12 @@ namespace Gameplay.Player
             var movementController = AddMovementController(inventoryController.Engine, _view);
             var frontalGunsController = AddFrontalGunsController(inventoryController.Turrets, _view);
             var healthController = AddHealthController(_config.HealthConfig, _config.Inventory.Shields[0]);
-            var canvasController = AddCanvasController(movementController.PlayerMovementModel, healthController);
+            var canvasController = AddCanvasController(healthController, movementController.CurrentSpeed, movementController.MaxSpeed);
         }
 
-        private CanvasController AddCanvasController(PlayerMovementModel movementModel, HealthController healthController)
+        private CanvasController AddCanvasController(HealthController healthController, float CurrentSpeed, float MaxSpeed)
         {
-            var canvasController = new CanvasController(movementModel, healthController);
+            var canvasController = new CanvasController(healthController, CurrentSpeed, MaxSpeed);
             AddController(canvasController);
             return canvasController;
         }

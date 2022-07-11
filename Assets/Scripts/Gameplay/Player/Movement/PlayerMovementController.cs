@@ -7,7 +7,8 @@ namespace Gameplay.Player.Movement
 {
     public class PlayerMovementController : BaseController
     {
-        public PlayerMovementModel PlayerMovementModel => _model;
+        public float CurrentSpeed => _model.CurrentSpeed;
+        public float MaxSpeed => _model.MaxSpeed;
         private readonly SubscribedProperty<float> _horizontalInput;
         private readonly SubscribedProperty<float> _verticalInput;
 

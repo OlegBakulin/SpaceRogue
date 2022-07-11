@@ -14,14 +14,16 @@ public class CanvasController : BaseController
 
     private readonly ResourcePath canvasPath = new ResourcePath("Prefabs/Canvas/Canvas");
 
-    private readonly PlayerMovementModel _movementModel;
+    private readonly float _CurrentSpeed;
+    private readonly float _MaxSpeed;
     private readonly HealthController _healthController;
     PlayerStatusBarController playerStatusBarController;
-    SpeedMetrController speedMetrController;
+    SpeedoMetrController speedMetrController;
         
-    public CanvasController(PlayerMovementModel movementModel, HealthController healthController)
+    public CanvasController(HealthController healthController, float CurrentSpeed, float MaxSpeed)
     {
-        _movementModel = movementModel;
+        _CurrentSpeed = CurrentSpeed;
+        _MaxSpeed = MaxSpeed;
         _healthController = healthController;
 
         Canvas canvase = LoadView<Canvas>(canvasPath);
@@ -29,7 +31,7 @@ public class CanvasController : BaseController
         playerStatusBarController = new PlayerStatusBarController(_healthController.HealthModel, canvase);
         AddController(playerStatusBarController);
 
-        speedMetrController = new SpeedMetrController(canvase, _movementModel);
+        speedMetrController = new SpeedoMetrController(canvase, _CurrentSpeed, _MaxSpeed);
         AddController(speedMetrController);
     }
 
