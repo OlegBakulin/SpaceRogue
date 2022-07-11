@@ -6,15 +6,13 @@ using UnityEngine.UI;
 
 public class SpeedoMetrController : BaseController
 {
-    private readonly ResourcePath _speedMetrPath = new ResourcePath("Prefabs/Canvas/Game/SpeedMetr");
-    private readonly float _CurrentSpeed;
-    private readonly float _MaxSpeed;
+    private readonly ResourcePath _speedMetrPath = new ResourcePath("Prefabs/Canvas/Game/SpeedoMetr");
+    private readonly PlayerMovementController _playerMovementController;
     private Text textSpeedMetr;
 
-    public SpeedoMetrController(Canvas canvas, float CurrentSpeed, float MaxSpeed)
+    public SpeedoMetrController(Canvas canvas, PlayerMovementController playerMovementController)
     {
-        _CurrentSpeed = CurrentSpeed;
-        _MaxSpeed = MaxSpeed;
+        _playerMovementController = playerMovementController;
 
         textSpeedMetr = ResourceLoader.LoadObject<Text>(_speedMetrPath);
         textSpeedMetr = GameObject.Instantiate<Text>(textSpeedMetr);
@@ -29,10 +27,11 @@ public class SpeedoMetrController : BaseController
 
     private void UpdatedSpeedMet()
     {
-        string speed = "STOP";
+        var _CurrentSpeed = _playerMovementController.CurrentSpeed;
+        string speed;
         if (_CurrentSpeed >= 0)
         {
-            int nowSpeed = (int)(_CurrentSpeed / _MaxSpeed * 100);
+            int nowSpeed = (int)(_CurrentSpeed / _playerMovementController.MaxSpeed * 100);
             speed = nowSpeed.ToString();
         }
         else
