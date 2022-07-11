@@ -30,7 +30,11 @@ namespace Gameplay.Enemy.Movement
         public void RotateTowardsPlayer()
         {
             Vector3 direction = _view.transform.position - _player.transform.position;
+        }
 
+        public void RotateByRandomAngle()
+        {
+            //10-20 degree rotation
         }
 
         public void StopMoving()
