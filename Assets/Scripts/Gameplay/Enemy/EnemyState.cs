@@ -4,7 +4,6 @@ namespace Gameplay.Enemy
     {
         Idle = 0,
         PassiveRoaming,
-        SeekingPlayer,
         InCombat
     }
 }

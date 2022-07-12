@@ -1,30 +1,34 @@
 using Abstracts;
 using Gameplay.Health;
-using Gameplay.Player.Movement;
+using UI.Game;
 using UnityEngine;
 using Utilities.ResourceManagement;
 
-public class CanvasController : BaseController
+namespace UI
 {
-
-
-    private readonly ResourcePath canvasPath = new ResourcePath("Prefabs/Canvas/Canvas");
-
-    private readonly HealthController _healthController;
-    private readonly PlayerStatusBarController playerStatusBarController;
-    private readonly SpeedoMetrController speedMetrController;
-        
-    public CanvasController(HealthController healthController, PlayerMovementController playerMovementController)
+    public class CanvasController : BaseController
     {
-        _healthController = healthController;
+        private readonly ResourcePath canvasPath = new("Prefabs/Canvas/Canvas");
 
-        Canvas canvase = LoadView<Canvas>(canvasPath);
+        private readonly float _currentSpeed;
+        private readonly float _maximumSpeed;
+        private readonly HealthController _healthController;
+        private readonly PlayerStatusBarController playerStatusBarController;
+        private readonly SpeedometerController speedometerController;
+        
+        public CanvasController(HealthController healthController, float currentSpeed, float maximumSpeed)
+        {
+            _currentSpeed = currentSpeed;
+            _maximumSpeed = maximumSpeed;
+            _healthController = healthController;
 
-        playerStatusBarController = new PlayerStatusBarController(_healthController.HealthModel, canvase);
-        AddController(playerStatusBarController);
+            Canvas canvas = ResourceLoader.LoadPrefab<Canvas>(canvasPath);
 
-        speedMetrController = new SpeedoMetrController(canvase, playerMovementController);
-        AddController(speedMetrController);
+            playerStatusBarController = new PlayerStatusBarController(_healthController.HealthModel, canvas);
+            AddController(playerStatusBarController);
+
+            speedometerController = new SpeedometerController(canvas, _currentSpeed, _maximumSpeed);
+            AddController(speedometerController);
+        }
     }
-
 }

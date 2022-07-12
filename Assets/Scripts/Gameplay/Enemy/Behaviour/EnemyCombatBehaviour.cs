@@ -1,3 +1,4 @@
+using Gameplay.Enemy.Movement;
 using Gameplay.Player;
 using Gameplay.Shooting;
 using Utilities.Reactive.SubscriptionProperty;
@@ -6,13 +7,13 @@ namespace Gameplay.Enemy.Behaviour
 {
     public class EnemyCombatBehaviour : EnemyBehaviour
     {
-        private readonly EnemyView _view;
+        private readonly EnemyBehaviourMovementModel _movementModel;
         private readonly FrontalTurretController _frontalTurret;
         private readonly PlayerView _target;
         
-        public EnemyCombatBehaviour(SubscribedProperty<EnemyState> enemyState, EnemyView view, FrontalTurretController frontalTurret) : base(enemyState)
+        public EnemyCombatBehaviour(SubscribedProperty<EnemyState> enemyState, PlayerView playerView, EnemyBehaviourMovementModel movementModel, FrontalTurretController frontalTurret) : base(enemyState, playerView)
         {
-            _view = view;
+            _movementModel = movementModel;
             _frontalTurret = frontalTurret;
         }
 

@@ -7,6 +7,7 @@ using Gameplay.Player.Inventory;
 using Gameplay.Player.Movement;
 using Scriptables;
 using Scriptables.Modules;
+using UI;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
 using Utilities.ResourceManagement;

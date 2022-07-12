@@ -1,4 +1,5 @@
 using System;
+using Gameplay.Player;
 using Utilities.Reactive.SubscriptionProperty;
 
 namespace Gameplay.Enemy.Behaviour
@@ -6,6 +7,7 @@ namespace Gameplay.Enemy.Behaviour
     public abstract class EnemyBehaviour : IDisposable
     {
         private readonly SubscribedProperty<EnemyState> _enemyState;
+        private readonly PlayerView _playerView;
         private bool _isDisposed;
 
         public void Dispose()
@@ -15,19 +17,20 @@ namespace Gameplay.Enemy.Behaviour
 
             _isDisposed = true;
 
-            EntryPoint.UnsubscribeFromUpdate(OnUpdate);
             OnDispose();
+            EntryPoint.UnsubscribeFromUpdate(OnUpdate);
         }
 
-        protected EnemyBehaviour(SubscribedProperty<EnemyState> enemyState)
+        protected EnemyBehaviour(SubscribedProperty<EnemyState> enemyState, PlayerView playerView)
         {
             _enemyState = enemyState;
+            _playerView = playerView;
             EntryPoint.SubscribeToUpdate(OnUpdate);
         }
 
         protected void ChangeState(EnemyState newState)
         {
-            _enemyState.Value = newState;
+            if (newState != _enemyState.Value) _enemyState.Value = newState;
         }
         
         protected abstract void OnUpdate();
