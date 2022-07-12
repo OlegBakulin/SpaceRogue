@@ -7,6 +7,7 @@ using Gameplay.Player.Inventory;
 using Gameplay.Player.Movement;
 using Scriptables;
 using Scriptables.Modules;
+using UI;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
 using Utilities.ResourceManagement;
@@ -42,9 +43,9 @@ namespace Gameplay.Player
             var canvasController = AddCanvasController(healthController, movementController.CurrentSpeed, movementController.MaxSpeed);
         }
 
-        private CanvasController AddCanvasController(HealthController healthController, float CurrentSpeed, float MaxSpeed)
+        private CanvasController AddCanvasController(HealthController healthController, float currentSpeed, float maxSpeed)
         {
-            var canvasController = new CanvasController(healthController, CurrentSpeed, MaxSpeed);
+            var canvasController = new CanvasController(healthController, currentSpeed, maxSpeed);
             AddController(canvasController);
             return canvasController;
         }

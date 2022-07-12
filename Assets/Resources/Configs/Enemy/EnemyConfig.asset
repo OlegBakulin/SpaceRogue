@@ -15,3 +15,14 @@ MonoBehaviour:
   <Id>k__BackingField: d3c03399-bcfd-4225-a73a-e823d41bc00f
   <Prefab>k__BackingField: {fileID: 905853938731985664, guid: 2593983f73b1c19439375d9f5f3d0cc8, type: 3}
   <Weapon>k__BackingField: {fileID: 11400000, guid: 39e86ece32dc17e4f9008929343ffd44, type: 2}
+  <Movement>k__BackingField:
+    maximumSpeed: 10
+    maximumBackwardSpeed: 1
+    accelerationTime: 2
+    startingTurnSpeed: 0.5
+    maximumTurnSpeed: 1
+    turnAccelerationTime: 2
+  <Behaviour>k__BackingField:
+    <PlayerDetectionRadius>k__BackingField: 30
+    <CallToArmsRadius>k__BackingField: 30
+    <ShootingDistance>k__BackingField: 15
