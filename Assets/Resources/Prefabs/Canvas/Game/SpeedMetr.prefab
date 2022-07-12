@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4674331918172001555}
   - component: {fileID: 3798770314068078341}
   m_Layer: 5
-  m_Name: Speedometer
+  m_Name: SpeedMetr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

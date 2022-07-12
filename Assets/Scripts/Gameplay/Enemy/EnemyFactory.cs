@@ -1,4 +1,3 @@
-using Gameplay.Player;
 using Scriptables.Enemy;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ namespace Gameplay.Enemy
             _config = config;
         }
 
-        public EnemyController CreateEnemy(Vector3 spawnPosition, PlayerView playerView) => new(_config, CreateEnemyView(spawnPosition), playerView);
+        public EnemyController CreateEnemy(Vector3 spawnPosition) => new(_config, CreateEnemyView(spawnPosition));
 
         private EnemyView CreateEnemyView(Vector3 spawnPosition) =>
             Object.Instantiate(_config.Prefab, spawnPosition, Quaternion.identity);

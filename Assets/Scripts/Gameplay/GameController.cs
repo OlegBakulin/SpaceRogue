@@ -4,7 +4,6 @@ using Gameplay.Camera;
 using Gameplay.GameState;
 using Gameplay.Player;
 using Gameplay.Space;
-using UI;
 
 namespace Gameplay
 {
@@ -13,7 +12,7 @@ namespace Gameplay
         private readonly CurrentState _currentState;
         private readonly PlayerController _playerController;
         private readonly SpaceController _spaceController;
-        private readonly EnemyForcesController _enemyForcesController;
+        private readonly EnemySpawnController _enemySpawnController;
         private readonly CameraController _cameraController;
         private readonly CanvasController _canvasController;
 
@@ -30,8 +29,8 @@ namespace Gameplay
             _spaceController = new SpaceController();
             AddController(_spaceController);
 
-            _enemyForcesController = new EnemyForcesController(_playerController.View);
-            AddController(_enemyForcesController);
+            _enemySpawnController = new EnemySpawnController();
+            AddController(_enemySpawnController);
         }
     }
 }
