@@ -1,5 +1,4 @@
 using Abstracts;
-using Gameplay.Player;
 using Scriptables.Enemy;
 using UnityEngine;
 using Utilities.Mathematics;
@@ -8,15 +7,13 @@ using Utilities.Unity;
 
 namespace Gameplay.Enemy
 {
-    public class EnemyForcesController : BaseController
+    public class EnemySpawnController : BaseController
     {
-        private readonly ResourcePath _groupSpawnConfigPath = new("Configs/Enemy/EnemySpawnConfig");
+        private readonly ResourcePath _groupSpawnConfigPath = new ResourcePath("Configs/Enemy/EnemySpawnConfig");
         private readonly EnemyFactory _enemyFactory;
-        private readonly PlayerView _playerView;
 
-        public EnemyForcesController(PlayerView playerView)
+        public EnemySpawnController()
         {
-            _playerView = playerView;
             var groupSpawnConfig = ResourceLoader.LoadObject<EnemySpawnConfig>(_groupSpawnConfigPath);
 
             _enemyFactory = new EnemyFactory(groupSpawnConfig.Enemy);
@@ -29,7 +26,7 @@ namespace Gameplay.Enemy
                 for (int i = 0; i < enemyGroupSpawn.GroupCount; i++)
                 {
                     var unitSpawnPoint = GetEmptySpawnPoint(enemyGroupSpawn.GroupSpawnPoint, unitSize, spawnCircleRadius);
-                    var enemyController = _enemyFactory.CreateEnemy(unitSpawnPoint, _playerView);
+                    var enemyController = _enemyFactory.CreateEnemy(unitSpawnPoint);
                     AddController(enemyController);
                 }
             }
