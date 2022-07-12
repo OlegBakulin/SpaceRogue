@@ -5,6 +5,7 @@ namespace Gameplay.Shooting
         None = 0,
         Blaster,
         Shotgun,
+        Minigun,
         Railgun
     }
 }
