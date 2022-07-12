@@ -5,20 +5,21 @@ using Utilities.ResourceManagement;
 
 namespace Gameplay.Shooting
 {
-    public class FrontalTurretController : BaseController
+    public abstract class FrontalTurretController : BaseController
     {
-        public bool IsOnCooldown => _cooldownTimer > 0;
+        public bool IsOnCooldown => CooldownTimer > 0;
         
-        private readonly TurretModuleConfig _config;
-        private readonly ProjectileFactory _projectileFactory;
-        
-        private readonly ResourcePath _gunPointPrefab = new("Prefabs/Stuff/GunPoint");
+        protected float CooldownTimer;
 
-        private float _cooldownTimer;
+        protected readonly TurretModuleConfig Config;
+        protected readonly ProjectileFactory ProjectileFactory;
+
+        private readonly ResourcePath _gunPointPrefab = new("Prefabs/Stuff/GunPoint");
+        
 
         public FrontalTurretController(TurretModuleConfig config, Transform gunPointParentTransform)
         {
-            _config = config;
+            Config = config;
             var gunPointView = ResourceLoader.LoadPrefab(_gunPointPrefab);
             
             var turretPoint = Object.Instantiate(
@@ -28,37 +29,28 @@ namespace Gameplay.Shooting
             );
             turretPoint.transform.parent = gunPointParentTransform;
             
-            _projectileFactory = new ProjectileFactory(_config.ProjectileConfig, _config.ProjectileConfig.Prefab, turretPoint.transform);
+            ProjectileFactory = new ProjectileFactory(Config.ProjectileConfig, Config.ProjectileConfig.Prefab, turretPoint.transform);
             
-            _cooldownTimer = 0.0f;
+            CooldownTimer = 0.0f;
             
             AddGameObject(turretPoint);
         }
 
-        public void CommenceFiring()
+        public abstract void CommenceFiring();
+
+        public abstract void CoolDown();
+
+        protected void BasicCoolDown()
         {
-            if (IsOnCooldown)
-            {
-                return;
-            }
-
-            var projectile = _projectileFactory.CreateProjectile();
-            AddController(projectile);
-
-            _cooldownTimer = _config.Cooldown;
-        }
-
-        public void CoolDown()
-        {
-            switch (_cooldownTimer)
+            switch (CooldownTimer)
             {
                 case 0:
                     return;
                 case < 0:
-                    _cooldownTimer = 0;
+                    CooldownTimer = 0;
                     return;
                 case > 0:
-                    _cooldownTimer -= Time.deltaTime;
+                    CooldownTimer -= Time.deltaTime;
                     return;
             }
         }

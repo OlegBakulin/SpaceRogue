@@ -39,13 +39,12 @@ namespace Gameplay.Player.FrontalGuns
             foreach (var turret in _turretControllers)
             {
                 if (isFiring) turret.CommenceFiring();
-                turret.CoolDown();
             }
         }
 
         private void InitializeTurret(TurretModuleConfig turretConfig, Transform transform)
         {
-            var turretController = new FrontalTurretController(turretConfig, transform);
+            var turretController = new FrontalBlasterController(turretConfig, transform);
             AddController(turretController);
             _turretControllers.Add(turretController);
         }
