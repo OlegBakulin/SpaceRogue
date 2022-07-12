@@ -22,3 +22,7 @@ MonoBehaviour:
     startingTurnSpeed: 0.5
     maximumTurnSpeed: 1
     turnAccelerationTime: 2
+  <Behaviour>k__BackingField:
+    <PlayerDetectionRadius>k__BackingField: 30
+    <CallToArmsRadius>k__BackingField: 30
+    <ShootingDistance>k__BackingField: 15
