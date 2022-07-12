@@ -1,4 +1,5 @@
 using Scriptables;
+using Scriptables.Health;
 using Scriptables.Modules;
 
 namespace Gameplay.Health
@@ -19,7 +20,7 @@ namespace Gameplay.Health
         private readonly float _shieldCooldown;
         private readonly float _currentShieldCooldown;
 
-        public HealthModel(HealthConfig healthConfig, ShieldModuleConfig shieldConfig)
+        public HealthModel(HealthConfig healthConfig, ShieldConfig shieldConfig)
         {
             _maximumHealth = healthConfig.MaximumHealth;
             _currentHealth = healthConfig.StartingHealth;

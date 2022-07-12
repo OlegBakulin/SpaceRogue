@@ -1,5 +1,6 @@
 using Abstracts;
 using Scriptables;
+using Scriptables.Health;
 using Scriptables.Modules;
 
 namespace Gameplay.Health
@@ -9,7 +10,7 @@ namespace Gameplay.Health
         public HealthModel HealthModel => _healthModel;
         private readonly HealthModel _healthModel;
 
-        public HealthController(HealthConfig healthConfig, ShieldModuleConfig shieldConfig)
+        public HealthController(HealthConfig healthConfig, ShieldConfig shieldConfig)
         {
             _healthModel = new HealthModel(healthConfig, shieldConfig);
         }

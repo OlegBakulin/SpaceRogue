@@ -6,6 +6,7 @@ using Gameplay.Player.FrontalGuns;
 using Gameplay.Player.Inventory;
 using Gameplay.Player.Movement;
 using Scriptables;
+using Scriptables.Health;
 using Scriptables.Modules;
 using UI;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace Gameplay.Player
     {
         public PlayerView View => _view;
 
-        private readonly ResourcePath _configPath = new("Configs/PlayerConfig");
+        private readonly ResourcePath _configPath = new("Configs/Player/PlayerConfig");
         private readonly ResourcePath _viewPath = new("Prefabs/Gameplay/Player");
 
         private readonly PlayerConfig _config;
@@ -39,7 +40,7 @@ namespace Gameplay.Player
             var inventoryController = AddInventoryController(_config.Inventory);
             var movementController = AddMovementController(inventoryController.Engine, _view);
             var frontalGunsController = AddFrontalGunsController(inventoryController.Turrets, _view);
-            var healthController = AddHealthController(_config.HealthConfig, _config.Inventory.Shields[0]);
+            var healthController = AddHealthController(_config.HealthConfig, _config.ShieldConfig);
             var canvasController = AddCanvasController(healthController, movementController.CurrentSpeed, movementController.MaxSpeed);
         }
 
@@ -50,7 +51,7 @@ namespace Gameplay.Player
             return canvasController;
         }
 
-        private HealthController AddHealthController(HealthConfig healthConfig, ShieldModuleConfig shieldConfig)
+        private HealthController AddHealthController(HealthConfig healthConfig, ShieldConfig shieldConfig)
         {
             var healthController = new HealthController(healthConfig, shieldConfig);
             AddController(healthController);
