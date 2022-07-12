@@ -23,7 +23,7 @@ namespace Gameplay.Enemy
             _config = config;
             _view = view;
             AddGameObject(_view.gameObject);
-            _turret = new FrontalTurretController(_config.Weapon, _view.transform);
+            _turret = new FrontalBlasterController(_config.Weapon, _view.transform);
             AddController(_turret);
 
             _movementModel = new EnemyMovementModel(_config.Movement);
