@@ -15,3 +15,4 @@ MonoBehaviour:
   <Id>k__BackingField: 501a5be9-9b3a-4f11-80b7-09684745de4b
   <Cooldown>k__BackingField: 3
   <ProjectileConfig>k__BackingField: {fileID: 11400000, guid: 3bd37a2d7f7e0574ba2c9f84713d0c54, type: 2}
+  <WeaponType>k__BackingField: 1
