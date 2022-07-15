@@ -3,20 +3,20 @@ using System.Collections.Generic;
 
 namespace Services
 {
-    public class ServiceLocator
+    public static class ServiceLocator
     {
-        private readonly Dictionary<Type, object> _serviceContainer;
+        private static readonly Dictionary<Type, object> ServiceContainer;
 
-        public ServiceLocator()
+        static ServiceLocator()
         {
-            _serviceContainer = new Dictionary<Type, object>();
+            ServiceContainer = new Dictionary<Type, object>();
         }
 
-        public TService GetService<TService>()
+        public static TService GetService<TService>()
         {
             try
             {
-                return (TService)_serviceContainer[typeof(TService)];
+                return (TService)ServiceContainer[typeof(TService)];
             }
             catch
             {
@@ -24,6 +24,6 @@ namespace Services
             }
         }
 
-        public void InitializeService<TService>(TService service) => _serviceContainer.TryAdd(typeof(TService), service);
+        public static void InitializeService<TService>(TService service) => ServiceContainer.TryAdd(typeof(TService), service);
     }
 }
