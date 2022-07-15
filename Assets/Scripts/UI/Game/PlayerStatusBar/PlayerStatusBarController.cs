@@ -7,7 +7,7 @@ using Utilities.ResourceManagement;
 public class PlayerStatusBarController : BaseController
 {
     public PlayerStatusBarView PlayerStatusBarView => healthShieldToolBarView;
-    private readonly ResourcePath healtShieldToolBarPath = new ResourcePath("Prefabs/Canvas/Game/PlayerStatusBar");
+    private readonly ResourcePath healtShieldToolBarPath = new("Prefabs/Canvas/Game/PlayerStatusBar");
 
     private readonly PlayerStatusBarView healthShieldToolBarView;
     private readonly HealthModel playerHealthShieldModel;
@@ -21,13 +21,11 @@ public class PlayerStatusBarController : BaseController
         healthShieldToolBarView = LoadView<PlayerStatusBarView>(healtShieldToolBarPath);
         playerHealthShieldModel = healthModel;
 
-        healthShieldToolBarView.transform.parent = canvas.transform;
+        healthShieldToolBarView.transform.SetParent(canvas.transform);
 
         barTransform = healthShieldToolBarView.gameObject.transform;
-        healthToolBarSlider = GameObject.Instantiate<Slider>(healthShieldToolBarView.HealthSlider);
-        healthToolBarSlider.transform.parent = barTransform.transform;
-        shieldToolBarSlider = GameObject.Instantiate<Slider>(healthShieldToolBarView.ShieldSlider);
-        shieldToolBarSlider.transform.parent = barTransform.transform;
+        healthToolBarSlider = Object.Instantiate(healthShieldToolBarView.HealthSlider, barTransform.transform, true);
+        shieldToolBarSlider = Object.Instantiate(healthShieldToolBarView.ShieldSlider, barTransform.transform, true);
 
         barTransform.localScale = Vector3.one;
         RectTransform rectTransformToolBar = healthShieldToolBarView.gameObject.GetComponent<RectTransform>();

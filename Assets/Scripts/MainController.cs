@@ -36,7 +36,7 @@ public class MainController : BaseController
         switch (newState)
         {
             case GameState.Menu:
-                _mainMenuController = new MainMenuController(_currentState, new RectTransform());
+                _mainMenuController = new MainMenuController(_currentState, _uiPosition);
                 break;
             case GameState.Game:
                 _gameController = new GameController(_currentState);
