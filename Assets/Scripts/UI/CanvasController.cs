@@ -8,12 +8,12 @@ namespace UI
 {
     public class CanvasController : BaseController
     {
-        private readonly ResourcePath canvasPath = new("Prefabs/Canvas/Canvas");
+        private readonly ResourcePath _mainCanvasPath = new("Prefabs/Canvas/Canvas");
 
         private readonly float _currentSpeed;
         private readonly float _maximumSpeed;
         private readonly HealthController _healthController;
-        private readonly PlayerStatusBarController playerStatusBarController;
+        //private readonly PlayerStatusBarController playerStatusBarController;
         private readonly SpeedometerController speedometerController;
         
         public CanvasController(HealthController healthController, float currentSpeed, float maximumSpeed)
@@ -22,10 +22,10 @@ namespace UI
             _maximumSpeed = maximumSpeed;
             _healthController = healthController;
 
-            Canvas canvas = ResourceLoader.LoadPrefab<Canvas>(canvasPath);
+            Canvas canvas = ResourceLoader.LoadPrefab<Canvas>(_mainCanvasPath);
 
-            playerStatusBarController = new PlayerStatusBarController(_healthController.HealthModel, canvas);
-            AddController(playerStatusBarController);
+            /*playerStatusBarController = new PlayerStatusBarController(_healthController.HealthModel, canvas);
+            AddController(playerStatusBarController);*/
 
             speedometerController = new SpeedometerController(canvas, _currentSpeed, _maximumSpeed);
             AddController(speedometerController);

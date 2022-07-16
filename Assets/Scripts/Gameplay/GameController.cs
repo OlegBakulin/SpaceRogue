@@ -5,6 +5,8 @@ using Gameplay.GameState;
 using Gameplay.Player;
 using Gameplay.Space;
 using UI;
+using UI.Game;
+using UnityEngine;
 
 namespace Gameplay
 {
@@ -16,10 +18,13 @@ namespace Gameplay
         private readonly EnemyForcesController _enemyForcesController;
         private readonly CameraController _cameraController;
         private readonly CanvasController _canvasController;
+        private readonly GameUIController _gameUIController;
 
-        public GameController(CurrentState currentState)
+        public GameController(CurrentState currentState, Canvas mainUICanvas)
         {
             _currentState = currentState;
+            _gameUIController = new GameUIController(mainUICanvas);
+            AddController(_gameUIController);
             
             _playerController = new PlayerController();
             AddController(_playerController);

@@ -7,12 +7,12 @@ namespace UI.MainMenu
     public class MainMenuController : BaseController
     {
         private readonly CurrentState _currentState;
-        private readonly Transform _uiPosition;
+        private readonly Canvas _mainUICanvas;
 
-        public MainMenuController(CurrentState currentState, Transform uiPosition)
+        public MainMenuController(CurrentState currentState, Canvas mainUICanvas)
         {
             _currentState = currentState;
-            _uiPosition = uiPosition;
+            _mainUICanvas = mainUICanvas;
             
             //TODO Menu load
             

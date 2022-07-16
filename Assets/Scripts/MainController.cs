@@ -1,6 +1,7 @@
 using Abstracts;
 using Gameplay;
 using Gameplay.GameState;
+using UI;
 using UI.MainMenu;
 using UnityEngine;
 
@@ -8,15 +9,18 @@ using UnityEngine;
 public class MainController : BaseController
 {
     private readonly CurrentState _currentState;
-    private readonly Transform _uiPosition;
+    private readonly MainUIController _mainUIController;
 
     private GameController _gameController;
     private MainMenuController _mainMenuController;
+    
 
     public MainController(CurrentState currentState, Transform uiPosition)
     {
         _currentState = currentState;
-        _uiPosition = uiPosition;
+
+        _mainUIController = new MainUIController(uiPosition);
+        AddController(_mainUIController);
         
         _currentState.CurrentGameState.Subscribe(OnGameStateChange);
         OnGameStateChange(_currentState.CurrentGameState.Value);
@@ -36,10 +40,10 @@ public class MainController : BaseController
         switch (newState)
         {
             case GameState.Menu:
-                _mainMenuController = new MainMenuController(_currentState, _uiPosition);
+                _mainMenuController = new MainMenuController(_currentState, _mainUIController.MainCanvas);
                 break;
             case GameState.Game:
-                _gameController = new GameController(_currentState);
+                _gameController = new GameController(_currentState, _mainUIController.MainCanvas);
                 break;
             case GameState.None:
             default: break;
