@@ -18,6 +18,15 @@ namespace Utilities.ResourceManagement
             var component = viewObject.GetComponent<TObject>();
             return component;
         }
+        
+        public static TObject LoadPrefabAsChild<TObject>(ResourcePath path, Transform transform)
+        {
+            var prefab = LoadPrefab(path);
+            var viewObject = Object.Instantiate(prefab, transform);
+
+            var component = viewObject.GetComponent<TObject>();
+            return component;
+        }
 
         public static TObject LoadObject<TObject>(ResourcePath path) where TObject : Object =>
             Resources.Load<TObject>(path.PathToResource);
