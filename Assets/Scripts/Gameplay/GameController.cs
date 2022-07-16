@@ -4,7 +4,6 @@ using Gameplay.Camera;
 using Gameplay.GameState;
 using Gameplay.Player;
 using Gameplay.Space;
-using UI;
 using UI.Game;
 using UnityEngine;
 
@@ -17,7 +16,6 @@ namespace Gameplay
         private readonly SpaceController _spaceController;
         private readonly EnemyForcesController _enemyForcesController;
         private readonly CameraController _cameraController;
-        private readonly CanvasController _canvasController;
         private readonly GameUIController _gameUIController;
 
         public GameController(CurrentState currentState, Canvas mainUICanvas)

@@ -8,7 +8,6 @@ using Gameplay.Player.Movement;
 using Scriptables;
 using Scriptables.Health;
 using Scriptables.Modules;
-using UI;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
 using Utilities.ResourceManagement;
