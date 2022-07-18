@@ -16,8 +16,11 @@ namespace Gameplay.Health
         public SubscribedProperty<float> MaximumShield { get; }
 
         private float _currentShieldCooldown;
+        private float _currentDamageImmunityTime;
         private readonly float _healthRegenAmount;
         private readonly float _shieldCooldown;
+        private const float DamageImmunityFrameLength = 0.5f;
+        
 
         private float RegenAmountPerDeltaTime => _healthRegenAmount * Time.deltaTime;
 
@@ -35,8 +38,12 @@ namespace Gameplay.Health
 
         internal void TakeDamage(float damageAmount)
         {
+            if (_currentDamageImmunityTime > 0.0f) return;
+
+            StartDamageImmunityWindow();
+            StartShieldCooldown();
             OnDamageTaken();
-            
+
             if (CurrentShield.Value > 0)
             {
                 if (CurrentShield.Value < damageAmount)
@@ -48,16 +55,21 @@ namespace Gameplay.Health
                 {
                     TakeShieldDamage(damageAmount);
                 }
-
                 return;
             }
             
             TakeHealthDamage(damageAmount);
-            StartShieldCooldown();
         }
 
         internal void UpdateState()
         {
+            if (_currentDamageImmunityTime >= 0.0f) CooldownDamageImmunityFrame();
+            
+            if (_currentShieldCooldown <= 0.0f && CurrentShield.Value < MaximumShield.Value)
+            {
+                RefreshShield();
+            }
+            
             if (CurrentHealth.Value < MaximumHealth.Value)
             {
                 CurrentHealth.Value += RegenAmountPerDeltaTime;
@@ -67,11 +79,11 @@ namespace Gameplay.Health
             {
                 CooldownShield();
             }
+        }
 
-            if (_currentShieldCooldown == 0.0f && CurrentShield.Value < MaximumShield.Value)
-            {
-                RefreshShield();
-            }
+        private void CooldownDamageImmunityFrame()
+        {
+            _currentDamageImmunityTime -= Time.deltaTime;
         }
 
         private void TakeShieldDamage(float damageAmount)
@@ -104,6 +116,11 @@ namespace Gameplay.Health
         private void RefreshShield()
         {
             CurrentShield.Value = MaximumShield.Value;
+        }
+
+        private void StartDamageImmunityWindow()
+        {
+            _currentDamageImmunityTime = DamageImmunityFrameLength;
         }
     }
 }
