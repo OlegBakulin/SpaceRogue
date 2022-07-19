@@ -14,18 +14,18 @@ namespace Gameplay.Health
             _healthModel = new HealthModel(healthConfig, shieldConfig);
             _statusBarView = GameUIController.PlayerStatusBarView;
             
-            _statusBarView.HealthSlider.Init(0.0f, _healthModel.MaximumHealth.Value, _healthModel.CurrentHealth.Value);
-            _statusBarView.ShieldSlider.Init(0.0f, _healthModel.MaximumShield.Value, _healthModel.CurrentShield.Value);
-            _healthModel.CurrentHealth.Subscribe(_statusBarView.HealthSlider.UpdateValue);
-            _healthModel.CurrentShield.Subscribe(_statusBarView.ShieldSlider.UpdateValue);
+            _statusBarView.HealthBar.Init(0.0f, _healthModel.MaximumHealth.Value, _healthModel.CurrentHealth.Value);
+            _statusBarView.ShieldBar.Init(0.0f, _healthModel.MaximumShield.Value, _healthModel.CurrentShield.Value);
+            _healthModel.CurrentHealth.Subscribe(_statusBarView.HealthBar.UpdateValue);
+            _healthModel.CurrentShield.Subscribe(_statusBarView.ShieldBar.UpdateValue);
             EntryPoint.SubscribeToUpdate(_healthModel.UpdateState);
         }
 
         protected override void OnDispose()
         {
             EntryPoint.UnsubscribeFromUpdate(_healthModel.UpdateState);
-            _healthModel.CurrentHealth.Unsubscribe(_statusBarView.HealthSlider.UpdateValue);
-            _healthModel.CurrentShield.Unsubscribe(_statusBarView.ShieldSlider.UpdateValue);
+            _healthModel.CurrentHealth.Unsubscribe(_statusBarView.HealthBar.UpdateValue);
+            _healthModel.CurrentShield.Unsubscribe(_statusBarView.ShieldBar.UpdateValue);
         }
     }
 }
