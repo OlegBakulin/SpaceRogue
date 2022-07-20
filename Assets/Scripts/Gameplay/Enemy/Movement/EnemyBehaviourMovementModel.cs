@@ -11,8 +11,9 @@ namespace Gameplay.Enemy.Movement
         private Transform _playerTransform;
         private Transform _enemyTransform;
         private float _speedRotation;
-        System.Random random = new System.Random();
-        float gradys;
+        private System.Random random = new System.Random();
+        private float gradys;
+        private Vector3 direction;
 
 
         public EnemyBehaviourMovementModel(EnemyMovementModel movementModel, EnemyView view, PlayerView playerView)
@@ -23,6 +24,8 @@ namespace Gameplay.Enemy.Movement
             _player = playerView;
             _playerTransform = playerView.gameObject.transform;
             _enemyTransform = _view.gameObject.transform;
+            // Вставить вызов функции для нахождения объекта для напрвления
+            EntryPoint.SubscribeToUpdate(RotateEnemy);
         }
         
         //TODO implement behaviour in all bottom methods
@@ -44,19 +47,17 @@ namespace Gameplay.Enemy.Movement
 
         public void RotateTowardsPlayer()
         {
-            Vector3 direction = (_enemyTransform.position - _playerTransform.position).normalized;
+            direction = (_enemyTransform.position - _playerTransform.position).normalized;
             float hipotenyze = Mathf.Sqrt(direction.x * direction.x + direction.y * direction.y);
             direction.z = Mathf.Acos(direction.x / hipotenyze);
-            RotateEnemy(direction);
         }
 
         public void RotateByRandomAngle()
         {
-            Vector3 direction = new Vector3(((float)random.Next(-100, 100)), ((float)random.Next(-100, 100)), ((float)random.Next(-100, 100)));
-            RotateEnemy(direction);
+            direction = new Vector3(((float)random.Next(-100, 100)), ((float)random.Next(-100, 100)), ((float)random.Next(-100, 100)));
         }
 
-        public void RotateEnemy(Vector3 direction)
+        public void RotateEnemy()
         {
             _enemyTransform.rotation = Quaternion.RotateTowards(_enemyTransform.rotation, Quaternion.LookRotation(direction, Vector3.forward), _speedRotation);
             _enemyTransform.rotation = new Quaternion (0, 0, _enemyTransform.rotation.z, _enemyTransform.rotation.w);
