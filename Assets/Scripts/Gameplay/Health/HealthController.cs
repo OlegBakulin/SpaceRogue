@@ -7,11 +7,11 @@ namespace Gameplay.Health
     public class HealthController : BaseController
     {
         private readonly PlayerStatusBarView _statusBarView;
-        private readonly HealthModel _healthModel;
+        private readonly HealthWithShieldModel _healthModel;
 
         public HealthController(HealthConfig healthConfig, ShieldConfig shieldConfig)
         {
-            _healthModel = new HealthModel(healthConfig, shieldConfig);
+            _healthModel = new HealthWithShieldModel(healthConfig, shieldConfig);
             _statusBarView = GameUIController.PlayerStatusBarView;
             
             _statusBarView.HealthBar.Init(0.0f, _healthModel.MaximumHealth.Value, _healthModel.CurrentHealth.Value);
@@ -19,6 +19,10 @@ namespace Gameplay.Health
             _healthModel.CurrentHealth.Subscribe(_statusBarView.HealthBar.UpdateValue);
             _healthModel.CurrentShield.Subscribe(_statusBarView.ShieldBar.UpdateValue);
             EntryPoint.SubscribeToUpdate(_healthModel.UpdateState);
+        }
+
+        public HealthController(HealthConfig healthConfig)
+        {
         }
 
         protected override void OnDispose()
