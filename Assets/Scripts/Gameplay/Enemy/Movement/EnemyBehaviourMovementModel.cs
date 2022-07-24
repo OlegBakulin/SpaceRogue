@@ -12,7 +12,6 @@ namespace Gameplay.Enemy.Movement
         private Transform _enemyTransform;
         private float _speedRotation;
         private System.Random random = new System.Random();
-        private float gradys;
         private Vector3 direction;
 
 
@@ -24,7 +23,7 @@ namespace Gameplay.Enemy.Movement
             _player = playerView;
             _playerTransform = playerView.gameObject.transform;
             _enemyTransform = _view.gameObject.transform;
-            // Вставить вызов функции для нахождения объекта для напрвления
+            // Вставить вызов функции для нахождения объекта для напрвления поворота
             EntryPoint.SubscribeToUpdate(RotateEnemy);
         }
         
@@ -57,8 +56,22 @@ namespace Gameplay.Enemy.Movement
             direction = new Vector3(((float)random.Next(-100, 100)), ((float)random.Next(-100, 100)), ((float)random.Next(-100, 100)));
         }
 
+        public void MoveAlongPlayer()
+        {
+            direction = (_enemyTransform.position - _playerTransform.position).normalized;
+            Vector3 _alongPlayer = 
+                (Mathf.Sqrt((direction.x + _playerTransform.TransformDirection(10, 0, 0).x) * (direction.x + _playerTransform.TransformDirection(10, 0, 0).x) + (direction.y + _playerTransform.TransformDirection(10, 0, 0).y) * (direction.y + _playerTransform.TransformDirection(10, 0, 0).y)) 
+                > (Mathf.Sqrt((direction.x + _playerTransform.TransformDirection(-10, 0, 0).x) * (direction.x + _playerTransform.TransformDirection(-10, 0, 0).x) + (direction.y + _playerTransform.TransformDirection(-10, 0, 0).y) * (direction.y + _playerTransform.TransformDirection(-10, 0, 0).y)))) 
+                ? (_playerTransform.position + _playerTransform.TransformDirection(10, 0, 0)) 
+                : (_playerTransform.position + _playerTransform.TransformDirection(-10, 0, 0));
+            direction = (_enemyTransform.position - _alongPlayer).normalized;
+            float hipotenyze = Mathf.Sqrt(direction.x * direction.x + direction.y * direction.y);
+            direction.z = Mathf.Acos(direction.x / hipotenyze);
+        }
+
         public void RotateEnemy()
         {
+            RotateTowardsPlayer();
             _enemyTransform.rotation = Quaternion.RotateTowards(_enemyTransform.rotation, Quaternion.LookRotation(direction, Vector3.forward), _speedRotation);
             _enemyTransform.rotation = new Quaternion (0, 0, _enemyTransform.rotation.z, _enemyTransform.rotation.w);
         }
