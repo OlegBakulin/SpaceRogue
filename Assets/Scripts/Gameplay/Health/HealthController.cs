@@ -6,30 +6,38 @@ namespace Gameplay.Health
 {
     public class HealthController : BaseController
     {
-        private readonly PlayerStatusBarView _statusBarView;
-        private readonly HealthWithShieldModel _healthModel;
+        private readonly HealthStatusBarView _statusBarView;
+        private readonly BaseHealthModel _healthModel;
 
-        public HealthController(HealthConfig healthConfig, ShieldConfig shieldConfig)
+        public HealthController(HealthConfig healthConfig, ShieldConfig shieldConfig, HealthShieldStatusBarView statusBarView)
         {
-            _healthModel = new HealthWithShieldModel(healthConfig, shieldConfig);
-            _statusBarView = GameUIController.PlayerStatusBarView;
+            var healthModel = new HealthWithShieldModel(healthConfig, shieldConfig);
             
-            _statusBarView.HealthBar.Init(0.0f, _healthModel.MaximumHealth.Value, _healthModel.CurrentHealth.Value);
-            _statusBarView.ShieldBar.Init(0.0f, _healthModel.MaximumShield.Value, _healthModel.CurrentShield.Value);
-            _healthModel.CurrentHealth.Subscribe(_statusBarView.HealthBar.UpdateValue);
-            _healthModel.CurrentShield.Subscribe(_statusBarView.ShieldBar.UpdateValue);
-            EntryPoint.SubscribeToUpdate(_healthModel.UpdateState);
+            statusBarView.HealthBar.Init(0.0f, healthModel.MaximumHealth.Value, healthModel.CurrentHealth.Value);
+            statusBarView.ShieldBar.Init(0.0f, healthModel.MaximumShield.Value, healthModel.CurrentShield.Value);
+            
+            healthModel.CurrentHealth.Subscribe(statusBarView.HealthBar.UpdateValue);
+            healthModel.CurrentShield.Subscribe(statusBarView.ShieldBar.UpdateValue);
+            EntryPoint.SubscribeToUpdate(healthModel.UpdateState);
+
+            _statusBarView = statusBarView;
+            _healthModel = healthModel;
         }
 
-        public HealthController(HealthConfig healthConfig)
+        public HealthController(HealthConfig healthConfig, HealthStatusBarView statusBarView)
         {
+            var healthModel = new HealthOnlyModel(healthConfig);
+            statusBarView.HealthBar.Init(0.0f, healthModel.MaximumHealth.Value, healthModel.CurrentHealth.Value);
+            healthModel.CurrentHealth.Subscribe(statusBarView.HealthBar.UpdateValue);
         }
 
         protected override void OnDispose()
         {
-            EntryPoint.UnsubscribeFromUpdate(_healthModel.UpdateState);
+            if (_healthModel is HealthWithShieldModel healthShieldModel && _statusBarView is HealthShieldStatusBarView statusShieldBar) 
+                healthShieldModel.CurrentShield.Unsubscribe(statusShieldBar.ShieldBar.UpdateValue);
+            
             _healthModel.CurrentHealth.Unsubscribe(_statusBarView.HealthBar.UpdateValue);
-            _healthModel.CurrentShield.Unsubscribe(_statusBarView.ShieldBar.UpdateValue);
+            EntryPoint.UnsubscribeFromUpdate(_healthModel.UpdateState);
         }
     }
 }

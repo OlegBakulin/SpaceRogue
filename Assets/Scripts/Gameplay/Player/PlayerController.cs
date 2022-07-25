@@ -8,6 +8,7 @@ using Gameplay.Player.Movement;
 using Scriptables;
 using Scriptables.Health;
 using Scriptables.Modules;
+using UI.Game;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
 using Utilities.ResourceManagement;
@@ -44,7 +45,7 @@ namespace Gameplay.Player
 
         private HealthController AddHealthController(HealthConfig healthConfig, ShieldConfig shieldConfig)
         {
-            var healthController = new HealthController(healthConfig, shieldConfig);
+            var healthController = new HealthController(healthConfig, shieldConfig, GameUIController.PlayerStatusBarView);
             AddController(healthController);
             return healthController;
         }
