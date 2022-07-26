@@ -26,3 +26,5 @@ MonoBehaviour:
     <PlayerDetectionRadius>k__BackingField: 30
     <CallToArmsRadius>k__BackingField: 30
     <ShootingDistance>k__BackingField: 15
+  <Health>k__BackingField: {fileID: 11400000, guid: 49f84a7d58c4fda41b8070e90008d49e, type: 2}
+  <Shield>k__BackingField: {fileID: 0}
