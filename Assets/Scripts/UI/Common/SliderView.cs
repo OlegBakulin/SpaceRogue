@@ -1,14 +1,15 @@
+using UI.Abstracts;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.Common
 {
     [RequireComponent(typeof(Slider))]
-    public class SliderView : MonoBehaviour
+    public class SliderView : BarView
     {
         private Slider _slider;
         
-        public void Init(float minValue, float maxValue, float currentValue)
+        public override void Init(float minValue, float maxValue, float currentValue)
         {
             _slider = GetComponent<Slider>();
             _slider.minValue = minValue;
@@ -16,7 +17,7 @@ namespace UI.Common
             _slider.value = currentValue;
         }
 
-        public void UpdateValue(float newValue)
+        public override void UpdateValue(float newValue)
         {
             _slider.value = newValue;
         }
