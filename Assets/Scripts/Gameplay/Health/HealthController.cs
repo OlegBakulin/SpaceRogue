@@ -1,3 +1,4 @@
+using System;
 using Abstracts;
 using Scriptables.Health;
 using UI.Game;
@@ -8,6 +9,8 @@ namespace Gameplay.Health
     {
         private readonly HealthStatusBarView _statusBarView;
         private readonly BaseHealthModel _healthModel;
+        
+        private Action _onDestroy;
 
         public HealthController(HealthConfig healthConfig, ShieldConfig shieldConfig, HealthShieldStatusBarView statusBarView)
         {
@@ -38,6 +41,7 @@ namespace Gameplay.Health
             var healthModel = new HealthOnlyModel(healthConfig);
             statusBarView.HealthBar.Init(0.0f, healthModel.MaximumHealth.Value, healthModel.CurrentHealth.Value);
             healthModel.CurrentHealth.Subscribe(statusBarView.HealthBar.UpdateValue);
+            _healthModel = healthModel;
         }
         
         public HealthController(HealthConfig healthConfig)
@@ -49,8 +53,15 @@ namespace Gameplay.Health
             _healthModel = healthModel;
         }
 
+        public void SubscribeToOnDestroy(Action onDestroyAction)
+        {
+            _onDestroy += onDestroyAction;
+            _healthModel.UnitDestroyed += onDestroyAction;
+        }
+
         protected override void OnDispose()
         {
+            _healthModel.UnitDestroyed -= _onDestroy;
             EntryPoint.UnsubscribeFromUpdate(_healthModel.UpdateState);
             
             if (_statusBarView is not null) 

@@ -22,7 +22,8 @@ namespace Gameplay.Shooting
             _remainingLifeTime = config.LifeTime;
             
             //TODO init view and subscribe to onCollisionEnter when damage model is developed
-            
+            _view.Init();
+
             EntryPoint.SubscribeToUpdate(TickDown);
         }
 

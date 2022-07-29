@@ -12,5 +12,6 @@ namespace Gameplay.Shooting
         [field: SerializeField, Min(0.1f)] public float DamageAmount { get; private set; } = 1f;
         [field: SerializeField, Min(0.01f)] public float Speed { get; private set; } = 1f;
         [field: SerializeField, Min(0.1f)] public float LifeTime { get; private set; } = 10.0f;
+        [field: SerializeField] public bool IsDestroyedOnHit { get; private set; } = true;
     }
 }

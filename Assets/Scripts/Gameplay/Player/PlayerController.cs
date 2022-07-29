@@ -46,6 +46,7 @@ namespace Gameplay.Player
         private HealthController AddHealthController(HealthConfig healthConfig, ShieldConfig shieldConfig)
         {
             var healthController = new HealthController(healthConfig, shieldConfig, GameUIController.PlayerStatusBarView);
+            healthController.SubscribeToOnDestroy(Dispose);
             AddController(healthController);
             return healthController;
         }

@@ -5,6 +5,7 @@ using Gameplay.Health;
 using Gameplay.Player;
 using Gameplay.Shooting;
 using Scriptables.Enemy;
+using Scriptables.Health;
 
 namespace Gameplay.Enemy
 {
@@ -35,9 +36,17 @@ namespace Gameplay.Enemy
             _behaviourController = new EnemyBehaviourController(_movementModel, _view, _turret, _playerView);
             AddController(_behaviourController);
 
-            _healthController = _config.Shield is null
+            _healthController = AddHealthController(_config.Health, _config.Shield);
+        }
+
+        private HealthController AddHealthController(HealthConfig healthConfig, ShieldConfig shieldConfig)
+        {
+            var healthController = _config.Shield is null
                 ? new HealthController(_config.Health)
                 : new HealthController(_config.Health, _config.Shield);
+            
+            healthController.SubscribeToOnDestroy(Dispose);
+            return healthController;
         }
     }
 }
