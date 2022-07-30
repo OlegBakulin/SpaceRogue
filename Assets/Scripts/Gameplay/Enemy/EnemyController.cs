@@ -42,8 +42,8 @@ namespace Gameplay.Enemy
         private HealthController AddHealthController(HealthConfig healthConfig, ShieldConfig shieldConfig)
         {
             var healthController = _config.Shield is null
-                ? new HealthController(_config.Health)
-                : new HealthController(_config.Health, _config.Shield);
+                ? new HealthController(_config.Health, _view)
+                : new HealthController(_config.Health, _config.Shield, _view);
             
             healthController.SubscribeToOnDestroy(Dispose);
             return healthController;

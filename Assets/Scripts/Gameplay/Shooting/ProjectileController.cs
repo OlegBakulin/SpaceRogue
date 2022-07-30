@@ -7,7 +7,6 @@ namespace Gameplay.Shooting
     public class ProjectileController : BaseController
     {
         private readonly ProjectileConfig _config;
-        private readonly DamageModel _damageModel;
         private readonly ProjectileView _view;
         private readonly Vector3 _movementDirection;
         private float _remainingLifeTime;
@@ -18,17 +17,18 @@ namespace Gameplay.Shooting
             _movementDirection = movementDirection;
             _view = view;
             AddGameObject(_view.gameObject);
-            _damageModel = new DamageModel(config.DamageAmount);
             _remainingLifeTime = config.LifeTime;
             
-            //TODO init view and subscribe to onCollisionEnter when damage model is developed
-            _view.Init();
+            var damageModel = new DamageModel(config.DamageAmount);
+            _view.Init(damageModel);
+            if (config.IsDestroyedOnHit) _view.CollisionEnter -= Dispose;
 
             EntryPoint.SubscribeToUpdate(TickDown);
         }
 
         protected override void OnDispose()
         {
+            _view.CollisionEnter -= Dispose;
             EntryPoint.UnsubscribeFromUpdate(TickDown);
         }
 
