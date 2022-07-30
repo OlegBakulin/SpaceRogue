@@ -21,7 +21,6 @@ namespace Abstracts
 
         public void TakeDamage(IDamagingView damageComponent)
         {
-            Debug.Log("Damage taken invoking");
             DamageTaken(damageComponent.DamageModel);
         }
     }

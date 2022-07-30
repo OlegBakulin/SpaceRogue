@@ -88,8 +88,6 @@ namespace Gameplay.Health
 
         private void TakeDamage(DamageModel damageModel)
         {
-            Debug("Model damage taking");
-            Debug($"Remaining {_healthModel.CurrentHealth.Value}hp");
             _healthModel.TakeDamage(damageModel.DamageAmount);
         }
     }
