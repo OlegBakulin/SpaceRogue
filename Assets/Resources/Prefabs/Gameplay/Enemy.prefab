@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5575584457972025561}
   - component: {fileID: 3545965457670958767}
   - component: {fileID: -7797189529595526584}
+  - component: {fileID: 2872125090079200833}
   - component: {fileID: 905853938731985664}
   m_Layer: 0
   m_Name: Enemy
@@ -102,6 +103,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!50 &2872125090079200833
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9171081012432150186}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &905853938731985664
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Gameplay.Shooting
 {
+    [RequireComponent(typeof(Collider))]
     public class ProjectileView : MonoBehaviour, IDamagingView
     {
         public event Action CollisionEnter = () => { };
@@ -14,7 +15,7 @@ namespace Gameplay.Shooting
             DamageModel = damageModel;
         }
 
-        public void OnCollisionEnter2D(Collision2D other)
+        public void OnTriggerEnter2D(Collider2D other)
         {
             CollisionEnter();
         }

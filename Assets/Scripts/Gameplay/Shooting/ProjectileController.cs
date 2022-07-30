@@ -21,7 +21,7 @@ namespace Gameplay.Shooting
             
             var damageModel = new DamageModel(config.DamageAmount);
             _view.Init(damageModel);
-            if (config.IsDestroyedOnHit) _view.CollisionEnter -= Dispose;
+            if (config.IsDestroyedOnHit) _view.CollisionEnter += Dispose;
 
             EntryPoint.SubscribeToUpdate(TickDown);
         }

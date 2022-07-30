@@ -1,5 +1,6 @@
 using System;
 using Abstracts;
+using Gameplay.Damage;
 using Scriptables.Health;
 using UI.Game;
 
@@ -24,7 +25,7 @@ namespace Gameplay.Health
             healthModel.CurrentShield.Subscribe(statusBarView.ShieldBar.UpdateValue);
             EntryPoint.SubscribeToUpdate(healthModel.UpdateState);
 
-            damageable.DamageTaken += healthModel.TakeDamage;
+            damageable.DamageTaken += TakeDamage;
             _damageable = damageable;
 
             _statusBarView = statusBarView;
@@ -37,7 +38,7 @@ namespace Gameplay.Health
             
             EntryPoint.SubscribeToUpdate(healthModel.UpdateState);
             
-            damageable.DamageTaken += healthModel.TakeDamage;
+            damageable.DamageTaken += TakeDamage;
             _damageable = damageable;
             
             _healthModel = healthModel;
@@ -48,7 +49,7 @@ namespace Gameplay.Health
             var healthModel = new HealthOnlyModel(healthConfig);
             statusBarView.HealthBar.Init(0.0f, healthModel.MaximumHealth.Value, healthModel.CurrentHealth.Value);
             
-            damageable.DamageTaken += healthModel.TakeDamage;
+            damageable.DamageTaken += TakeDamage;
             _damageable = damageable;
             
             healthModel.CurrentHealth.Subscribe(statusBarView.HealthBar.UpdateValue);
@@ -59,7 +60,7 @@ namespace Gameplay.Health
         {
             var healthModel = new HealthOnlyModel(healthConfig);
             
-            damageable.DamageTaken += healthModel.TakeDamage;
+            damageable.DamageTaken += TakeDamage;
             _damageable = damageable;
             
             EntryPoint.SubscribeToUpdate(healthModel.UpdateState);
@@ -74,7 +75,7 @@ namespace Gameplay.Health
 
         protected override void OnDispose()
         {
-            _damageable.DamageTaken -= _healthModel.TakeDamage;
+            _damageable.DamageTaken -= TakeDamage;
             _healthModel.UnitDestroyed -= _onDestroy;
             EntryPoint.UnsubscribeFromUpdate(_healthModel.UpdateState);
             
@@ -83,6 +84,13 @@ namespace Gameplay.Health
 
             if (_healthModel is HealthWithShieldModel healthShieldModel && _statusBarView is HealthShieldStatusBarView statusShieldBar) 
                 healthShieldModel.CurrentShield.Unsubscribe(statusShieldBar.ShieldBar.UpdateValue);
+        }
+
+        private void TakeDamage(DamageModel damageModel)
+        {
+            Debug("Model damage taking");
+            Debug($"Remaining {_healthModel.CurrentHealth.Value}hp");
+            _healthModel.TakeDamage(damageModel.DamageAmount);
         }
     }
 }

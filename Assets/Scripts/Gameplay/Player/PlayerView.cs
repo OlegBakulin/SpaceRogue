@@ -1,12 +1,8 @@
-using System;
-using Gameplay.Health;
-using UnityEngine;
+using Abstracts;
 
 namespace Gameplay.Player
 {
-    [RequireComponent(typeof(Rigidbody2D))]
-    public class PlayerView : MonoBehaviour, IDamageableView
+    public class PlayerView : UnitView
     {
-        public event Action<float> DamageTaken = (float _) => { };
     }
 }
