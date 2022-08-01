@@ -21,6 +21,10 @@ namespace Gameplay.Enemy.Movement
         public void MoveForward()
         {
         }
+        
+        public void MoveForwardAtLowSpeed()
+        {
+        }
 
         public void MoveBackward()
         {
