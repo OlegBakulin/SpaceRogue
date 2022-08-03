@@ -57,7 +57,7 @@ namespace Gameplay.Player.Movement
                 transform.position += forwardDirection * currentSpeed * Time.deltaTime;
             }
 
-            if (newInputValue == 0 && currentSpeed is < 0.1f and > -0.1f)
+            if (newInputValue == 0 && currentSpeed < _model.StoppingSpeed && currentSpeed > -_model.StoppingSpeed)
             {
                 _model.StopMoving();
             }

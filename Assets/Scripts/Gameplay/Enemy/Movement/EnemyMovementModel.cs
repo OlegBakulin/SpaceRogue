@@ -7,6 +7,7 @@ namespace Gameplay.Enemy.Movement
         private readonly EnemyMovementConfig _config;
 
         public float MaximumSpeed => _config.maximumSpeed;
+        public float StoppingSpeed => _config.stoppingSpeed;
         public float CurrentSpeed { get; private set; }
         public float CurrentTurnRate { get; private set; }
         public float CurrentAcceleration { get; private set; }

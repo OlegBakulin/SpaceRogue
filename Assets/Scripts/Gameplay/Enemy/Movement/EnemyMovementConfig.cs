@@ -13,6 +13,8 @@ namespace Gameplay.Enemy.Movement
         [SerializeField] public float maximumBackwardSpeed = 0.1f;
         [Min(0.1f)]
         [SerializeField] public float accelerationTime = 0.1f;
+        [Min(0.1f)]
+        [SerializeField] public float stoppingSpeed = 0.3f;
 
         [Header("Turn speed")] 
         [Min(0.1f)]
