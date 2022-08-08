@@ -49,20 +49,19 @@ namespace Gameplay.Enemy.Movement
             
             _movementModel.Accelerate(false);
         }
-
-        //---
-        //TODO to implement these, some model changes is required
+        
         public void RotateTowardsPlayer()
         {
+            Vector3 currentDirection = _view.transform.position - Vector3.up;
             Vector3 direction = _view.transform.position - _player.transform.position;
+            Debug.Log(currentDirection);
+            Debug.Log(direction);
         }
 
         public void RotateByRandomAngle()
         {
             //10-20 degree rotation
         }
-        
-        //---
 
         public void StopMoving()
         {

@@ -22,7 +22,7 @@ namespace Gameplay.Enemy.Behaviour
             _playerView = playerView;
 
             _enemyCurrentState = new SubscribedProperty<EnemyState>(EnemyState.PassiveRoaming);
-            _currentBehaviour = new EnemyIdleBehaviour(_enemyCurrentState, playerView);
+            _currentBehaviour = new EnemyRoamingBehaviour(_enemyCurrentState, playerView, _movementModel);
             _enemyCurrentState.Subscribe(OnEnemyStateChange);
             OnEnemyStateChange(EnemyState.PassiveRoaming);
         }
