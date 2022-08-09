@@ -12,6 +12,7 @@ using UI.Game;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
 using Utilities.ResourceManagement;
+using Utilities.Unity;
 
 namespace Gameplay.Player
 {
@@ -32,7 +33,7 @@ namespace Gameplay.Player
         public PlayerController()
         {
             _config = ResourceLoader.LoadObject<PlayerConfig>(_configPath);
-            _view = LoadView<PlayerView>(_viewPath, Vector3.zero);
+            _view = LoadView<PlayerView>(_viewPath, StartedPlayerPosition());
 
             var inputController = new InputController(_horizontalInput, _verticalInput, _primaryFireInput);
             AddController(inputController);
@@ -70,6 +71,22 @@ namespace Gameplay.Player
             var frontalGunsController = new FrontalGunsController(_primaryFireInput, turretConfigs, view);
             AddController(frontalGunsController);
             return frontalGunsController;
+        }
+
+        private Vector3 StartedPlayerPosition()
+        {
+            Vector3 startPlayerPosition = RandomizePositionAtMinus400ToPlus400();
+            while (UnityHelper.IsAnyObjectAtPosition(startPlayerPosition, 10f))
+            {
+                startPlayerPosition = RandomizePositionAtMinus400ToPlus400();
+            };
+            return startPlayerPosition;
+        }
+
+        private Vector3 RandomizePositionAtMinus400ToPlus400()
+        {
+            System.Random random = new System.Random();
+            return new Vector3(random.Next(-400, 400), random.Next(-400, 400), 0);
         }
     }
 }
