@@ -7,6 +7,7 @@ namespace Gameplay.Enemy.Movement
         private readonly EnemyMovementConfig _config;
 
         public float MaximumSpeed => _config.maximumSpeed;
+        public float StoppingSpeed => _config.stoppingSpeed;
         public float CurrentSpeed { get; private set; }
         public float CurrentTurnRate { get; private set; }
         public float CurrentAcceleration { get; private set; }
@@ -71,29 +72,20 @@ namespace Gameplay.Enemy.Movement
             }
         }
 
-        public void StopTurning() => CurrentTurnRate = 0.0f;
+        public void StopTurning()
+        {
+            CurrentTurnRateMultiplier = 0.0f;
+            CurrentTurnRate = 0.0f;
+        }
 
         public void StopMoving()
         {
             CurrentSpeed = 0.0f;
             CurrentAcceleration = 0.0f;
         }
-
-        public void SetTurnMultiplier(float newValue)
-        {
-            switch (newValue)
-            {
-                case <= -1.0f:
-                    CurrentTurnRateMultiplier = -1.0f;
-                    return;
-                case >= 1.0f:
-                    CurrentTurnRateMultiplier = 1.0f;
-                    return;
-                default: 
-                    CurrentTurnRateMultiplier = newValue;
-                    return;
-            }
-        }
+        
+        public void TurnLeft() => CurrentTurnRateMultiplier = -1.0f;
+        public void TurnRight() => CurrentTurnRateMultiplier = 1.0f;
 
         private static float CountAcceleration(float speedDifference, float accelerationTime)
         {

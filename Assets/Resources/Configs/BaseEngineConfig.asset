@@ -16,6 +16,7 @@ MonoBehaviour:
   maximumSpeed: 10
   maximumBackwardSpeed: 1
   accelerationTime: 2
+  stoppingSpeed: 2
   startingTurnSpeed: 0.5
   maximumTurnSpeed: 1
   turnAccelerationTime: 2

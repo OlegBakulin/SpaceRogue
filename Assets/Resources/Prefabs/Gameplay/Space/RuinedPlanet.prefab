@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 305016165844794655}
   - component: {fileID: 413425888046034639}
   - component: {fileID: -6696340050246795805}
+  - component: {fileID: -485791958909590694}
   m_Layer: 0
   m_Name: RuinedPlanet
   m_TagString: Untagged
@@ -97,3 +98,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b36705fd4b441b6be1dca017c4ac9e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &-485791958909590694
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4863364052809989618}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.02}
+  serializedVersion: 2
+  m_Radius: 0.35

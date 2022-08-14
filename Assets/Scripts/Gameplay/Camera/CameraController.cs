@@ -10,6 +10,7 @@ namespace Gameplay.Camera
         private readonly CameraView _cameraView;
         private readonly PlayerView _playerView;
         private const int CameraZAxisOffset = -10;
+        private Vector3 playerPosition;
 
         public CameraController(PlayerView playerView)
         {
@@ -25,7 +26,7 @@ namespace Gameplay.Camera
 
         private void FollowPlayer()
         {
-            Vector3 playerPosition = _playerView.gameObject.transform.position;
+            playerPosition = _playerView ? _playerView.gameObject.transform.position : playerPosition;
             _cameraView.gameObject.transform.position = new Vector3(playerPosition.x, playerPosition.y, playerPosition.z + CameraZAxisOffset);
         }
     }

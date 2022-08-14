@@ -24,14 +24,14 @@ namespace Gameplay
             _gameUIController = new GameUIController(mainUICanvas);
             AddController(_gameUIController);
             
+            _spaceController = new SpaceController();
+            AddController(_spaceController);
+
             _playerController = new PlayerController();
             AddController(_playerController);
 
             _cameraController = new CameraController(_playerController.View);
             AddController(_cameraController);
-
-            _spaceController = new SpaceController();
-            AddController(_spaceController);
 
             _enemyForcesController = new EnemyForcesController(_playerController.View);
             AddController(_enemyForcesController);

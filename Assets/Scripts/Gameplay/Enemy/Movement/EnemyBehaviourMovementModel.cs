@@ -15,21 +15,47 @@ namespace Gameplay.Enemy.Movement
             _view = view;
             _player = playerView;
         }
-        
-        //TODO implement behaviour in all bottom methods
 
         public void MoveForward()
         {
+            if (_movementModel.CurrentSpeed < 0)
+            {
+                StopMoving();
+                return;
+            }
+            
+            _movementModel.Accelerate(true);
+        }
+        
+        public void MoveForwardAtLowSpeed()
+        {
+            if (_movementModel.CurrentSpeed < 0)
+            {
+                StopMoving();
+                return;
+            }
+            
+            if (_movementModel.CurrentSpeed <= _movementModel.MaximumSpeed / 2) 
+                _movementModel.Accelerate(true);
         }
 
         public void MoveBackward()
         {
+            if (_movementModel.CurrentSpeed > 0)
+            {
+                StopMoving();
+                return;
+            }
             
+            _movementModel.Accelerate(false);
         }
-
+        
         public void RotateTowardsPlayer()
         {
+            Vector3 currentDirection = _view.transform.position - Vector3.up;
             Vector3 direction = _view.transform.position - _player.transform.position;
+            Debug.Log(currentDirection);
+            Debug.Log(direction);
         }
 
         public void RotateByRandomAngle()
@@ -39,12 +65,24 @@ namespace Gameplay.Enemy.Movement
 
         public void StopMoving()
         {
+            if (_movementModel.CurrentSpeed > _movementModel.StoppingSpeed)
+            {
+                _movementModel.Accelerate(false);
+                return;
+            }
             
+            if (_movementModel.CurrentSpeed < -_movementModel.StoppingSpeed)
+            {
+                _movementModel.Accelerate(true);
+                return;
+            }
+            
+            _movementModel.StopMoving();
         }
 
         public void StopTurning()
         {
-            
+            _movementModel.StopTurning();
         }
     }
 }
