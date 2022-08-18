@@ -11,17 +11,19 @@ namespace Gameplay
 {
     public class GameController : BaseController
     {
-        private readonly CurrentState _currentState;
+        private static CurrentState _currentState;
         private readonly PlayerController _playerController;
         private readonly SpaceController _spaceController;
         private readonly EnemyForcesController _enemyForcesController;
         private readonly CameraController _cameraController;
-        private readonly GameUIController _gameUIController;
+        private GameUIController _gameUIController;
+        private readonly Canvas _mainUICanvas;
 
         public GameController(CurrentState currentState, Canvas mainUICanvas)
         {
             _currentState = currentState;
-            _gameUIController = new GameUIController(mainUICanvas);
+            _mainUICanvas = mainUICanvas;
+            _gameUIController = new GameUIController(_mainUICanvas);
             AddController(_gameUIController);
             
             _spaceController = new SpaceController();
@@ -29,12 +31,23 @@ namespace Gameplay
 
             _playerController = new PlayerController();
             AddController(_playerController);
+            _playerController.PlayerDestroyed += OnPlayerDestroyed;
 
             _cameraController = new CameraController(_playerController.View);
             AddController(_cameraController);
 
             _enemyForcesController = new EnemyForcesController(_playerController.View);
             AddController(_enemyForcesController);
+        }
+
+        public void OnPlayerDestroyed()
+        {
+            _gameUIController.AddDestroyPlayerMessage();
+        }
+
+        public static void EditorStatusGameOnMenu() 
+        {
+            _currentState.CurrentGameState.Value = GameState.GameState.Menu;
         }
     }
 }

@@ -85,7 +85,6 @@ namespace Gameplay.Health
             if (_healthModel is HealthWithShieldModel healthShieldModel && _statusBarView is HealthShieldStatusBarView statusShieldBar) 
                 healthShieldModel.CurrentShield.Unsubscribe(statusShieldBar.ShieldBar.UpdateValue);
 
-            GameUIController.ActivatorButtonDestroyPlayer(true);
         }
 
         private void TakeDamage(DamageModel damageModel)

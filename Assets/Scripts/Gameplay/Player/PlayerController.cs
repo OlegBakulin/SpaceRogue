@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Abstracts;
 using Gameplay.Health;
@@ -30,6 +31,8 @@ namespace Gameplay.Player
         private readonly SubscribedProperty<float> _verticalInput = new();
         private readonly SubscribedProperty<bool> _primaryFireInput = new();
 
+        public event Action PlayerDestroyed = () => { };
+
         public PlayerController()
         {
             _config = ResourceLoader.LoadObject<PlayerConfig>(_configPath);
@@ -48,6 +51,7 @@ namespace Gameplay.Player
         {
             var healthController = new HealthController(healthConfig, shieldConfig, GameUIController.PlayerStatusBarView, _view);
             healthController.SubscribeToOnDestroy(Dispose);
+            healthController.SubscribeToOnDestroy(OnPlayerDestroyed);
             AddController(healthController);
             return healthController;
         }
@@ -87,6 +91,11 @@ namespace Gameplay.Player
         {
             System.Random random = new System.Random();
             return new Vector3(random.Next(-400, 400), random.Next(-400, 400), 0);
+        }
+
+        public void OnPlayerDestroyed() 
+        {
+            PlayerDestroyed();
         }
     }
 }

@@ -1,4 +1,5 @@
 using Abstracts;
+using Gameplay;
 using System;
 using UI.Abstracts;
 using UnityEngine;
@@ -33,7 +34,6 @@ namespace UI.Game
             
             AddPlayerStatusBar();
             AddPlayerSpeedometer();
-            AddDestroyPlayerMessage();
         }
 
         private void AddPlayerStatusBar()
@@ -62,9 +62,7 @@ namespace UI.Game
             _playerDestroyPlayerView = _playerDestroyPlayerCanvas.GetComponent<DestroyPlayerView>();
             DestroyPlayerViewComponent = _playerDestroyPlayerView;
             DestroyPlayerViewComponent.gameObject.GetComponentInChildren<Button>().onClick.AddListener(QuitGame);
-            ActivatorButtonDestroyPlayer(false);
             AddGameObject(_playerDestroyPlayerCanvas.gameObject);
-
         }
 
         public static void ActivatorButtonDestroyPlayer (Boolean activeButtonTrueOrFalse)
@@ -72,6 +70,9 @@ namespace UI.Game
             DestroyPlayerViewComponent.gameObject.SetActive(activeButtonTrueOrFalse);
         }
 
-        private void QuitGame() => Application.Quit();
+        private void QuitGame()
+        {
+            GameController.EditorStatusGameOnMenu();
+        }
     }
 }
