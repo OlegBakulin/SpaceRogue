@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Scriptables;
+using UnityEngine;
 using Random = System.Random;
 
 namespace Utilities.Mathematics
@@ -40,5 +41,16 @@ namespace Utilities.Mathematics
         }
 
         public static int PickRandomBetweenTwoValues(int minValue, int maxValue, Random r) => r.Next(minValue, maxValue + 1);
+
+        public static Vector3 PickRandomAngle(int leftAngle, int rightAngle, Random r)
+        {
+            int randomAngle = r.Next(-leftAngle, rightAngle + 1);
+            float radianAngle = randomAngle * Mathf.PI / 180.0f;
+            float x = Mathf.Cos(radianAngle);
+            float y = Mathf.Sin(radianAngle);
+            return new Vector3(x, y, 0);
+        }
+        
+        public static Vector3 PickRandomAngle(int angle, Random r) => PickRandomAngle(angle, angle, r);
     }
 }

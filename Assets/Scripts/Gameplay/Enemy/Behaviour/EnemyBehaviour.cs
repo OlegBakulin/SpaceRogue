@@ -6,8 +6,10 @@ namespace Gameplay.Enemy.Behaviour
 {
     public abstract class EnemyBehaviour : IDisposable
     {
+        protected readonly EnemyView View;
+        protected readonly PlayerView PlayerView;
+        
         private readonly SubscribedProperty<EnemyState> _enemyState;
-        private readonly PlayerView _playerView;
         private bool _isDisposed;
 
         public void Dispose()
@@ -21,10 +23,11 @@ namespace Gameplay.Enemy.Behaviour
             EntryPoint.UnsubscribeFromUpdate(OnUpdate);
         }
 
-        protected EnemyBehaviour(SubscribedProperty<EnemyState> enemyState, PlayerView playerView)
+        protected EnemyBehaviour(SubscribedProperty<EnemyState> enemyState, EnemyView view, PlayerView playerView)
         {
             _enemyState = enemyState;
-            _playerView = playerView;
+            View = view;
+            PlayerView = playerView;
             EntryPoint.SubscribeToUpdate(OnUpdate);
         }
 

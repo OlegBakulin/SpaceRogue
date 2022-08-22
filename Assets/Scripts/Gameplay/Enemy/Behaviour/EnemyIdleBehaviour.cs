@@ -5,7 +5,7 @@ namespace Gameplay.Enemy.Behaviour
 {
     public class EnemyIdleBehaviour : EnemyBehaviour
     {
-        public EnemyIdleBehaviour(SubscribedProperty<EnemyState> enemyState, PlayerView playerView) : base(enemyState, playerView)
+        public EnemyIdleBehaviour(SubscribedProperty<EnemyState> enemyState, EnemyView view, PlayerView playerView) : base(enemyState, view, playerView)
         {
         }
 

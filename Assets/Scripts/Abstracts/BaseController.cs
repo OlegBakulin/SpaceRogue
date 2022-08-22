@@ -34,7 +34,7 @@ namespace Abstracts
                 return;
 
             foreach (BaseController baseController in _baseControllers)
-                baseController.Dispose();
+                baseController?.Dispose();
 
             _baseControllers.Clear();
         }

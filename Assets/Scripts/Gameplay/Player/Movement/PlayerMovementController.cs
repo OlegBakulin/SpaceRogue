@@ -1,5 +1,5 @@
 using Abstracts;
-using Scriptables.Modules;
+using Gameplay.Movement;
 using UI.Game;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
@@ -12,7 +12,7 @@ namespace Gameplay.Player.Movement
         private readonly SubscribedProperty<float> _verticalInput;
 
         private readonly PlayerSpeedometerView _speedometerView;
-        private readonly PlayerMovementModel _model;
+        private readonly MovementModel _model;
         private readonly PlayerView _view;
         
 
@@ -20,13 +20,13 @@ namespace Gameplay.Player.Movement
         public PlayerMovementController(
             SubscribedProperty<float> horizontalInput, 
             SubscribedProperty<float> verticalInput,
-            EngineModuleConfig config,
+            MovementConfig config,
             PlayerView view)
         {
             _horizontalInput = horizontalInput;
             _verticalInput = verticalInput;
             _view = view;
-            _model = new PlayerMovementModel(config);
+            _model = new MovementModel(config);
             _speedometerView = GameUIController.PlayerSpeedometerView;
             _speedometerView.Init(GetSpeedometerTextValue(0.0f, _model.MaxSpeed));
 
