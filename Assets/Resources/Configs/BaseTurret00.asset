@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BaseTurret00
   m_EditorClassIdentifier: 
   <Id>k__BackingField: base-turret-00
-  <ProjectileConfig>k__BackingField: {fileID: 11400000, guid: 9a854f6473e7e05428f36a8c003f613b, type: 2}
-  <WeaponType>k__BackingField: 5
-  <SpecificWeapon>k__BackingField: {fileID: 11400000, guid: 81a9824c79ae3ea4a92ca32081124dd1, type: 2}
+  <ProjectileConfig>k__BackingField: {fileID: 11400000, guid: 3a3a768c7b747ea4abac3f173360a451, type: 2}
+  <WeaponType>k__BackingField: 2
+  <SpecificWeapon>k__BackingField: {fileID: 11400000, guid: 74cda2afc8f8bfc44b70705c87c7fb8d, type: 2}
