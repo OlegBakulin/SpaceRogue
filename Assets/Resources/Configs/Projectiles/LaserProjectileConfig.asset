@@ -16,5 +16,5 @@ MonoBehaviour:
   <Prefab>k__BackingField: {fileID: 2956696309068223445, guid: a17c56e217fe4804abe25308c38c58c0, type: 3}
   <DamageAmount>k__BackingField: 1
   <Speed>k__BackingField: 1
-  <LifeTime>k__BackingField: 10
+  <LifeTime>k__BackingField: 0.005
   <IsDestroyedOnHit>k__BackingField: 0
