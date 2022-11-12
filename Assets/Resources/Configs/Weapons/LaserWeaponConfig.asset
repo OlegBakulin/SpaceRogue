@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: LaserWeaponConfig
   m_EditorClassIdentifier: 
   <Id>k__BackingField: ec4bfe8c-80ae-4815-9fa6-0fe980a12127
-  <Cooldown>k__BackingField: 2
-  <LaserProjectile>k__BackingField: {fileID: 11400000, guid: 9a854f6473e7e05428f36a8c003f613b, type: 2}
-  <Long_Dlina>k__BackingField: 7.79
-  <MaxActiveTime_M>k__BackingField: 0.001
-  <ActiveTime_K>k__BackingField: 0.001
-  <Koefficient_X>k__BackingField: 0
+  <Cooldown>k__BackingField: 0.1
+  <Projectile>k__BackingField: {fileID: 11400000, guid: 9a854f6473e7e05428f36a8c003f613b, type: 2}
+  <LaserObject>k__BackingField: {fileID: -5828621502521127348, guid: a17c56e217fe4804abe25308c38c58c0, type: 3}
+  <Long_Dlina>k__BackingField: 6.67
+  <MaxActiveTime_M>k__BackingField: 1
+  <ActiveTime_K>k__BackingField: 1
+  <Koefficient_X>k__BackingField: 1
