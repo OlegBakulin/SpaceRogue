@@ -24,7 +24,6 @@ namespace Gameplay.Shooting
         public FrontalLaserController(TurretModuleConfig config, Transform gunPointParentTransform) : base(config, gunPointParentTransform)
         {
             var _attackActive = gunPointParentTransform.gameObject.GetComponent<PlayerView>();
-            
             var laserConfig = config.SpecificWeapon as LaserWeaponConfig;
             _weaponConfig = laserConfig
                 ? laserConfig
@@ -95,6 +94,5 @@ namespace Gameplay.Shooting
                 _firstAttack = false;
             }
         }
-
     }
 }
