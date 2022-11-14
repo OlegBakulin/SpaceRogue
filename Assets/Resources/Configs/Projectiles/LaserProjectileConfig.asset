@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: LaserProjectileConfig
   m_EditorClassIdentifier: 
   <Id>k__BackingField: c2607488-6c35-4d90-9efa-abb2e22d5c0c
-  <Prefab>k__BackingField: {fileID: 2956696309068223445, guid: a17c56e217fe4804abe25308c38c58c0, type: 3}
-  <DamageAmount>k__BackingField: 1
-  <Speed>k__BackingField: 1
-  <LifeTime>k__BackingField: 10
-  <IsDestroyedOnHit>k__BackingField: 0
+  <Prefab>k__BackingField: {fileID: 5373172656145502590, guid: c1724236e09a2ec458f9f9f78e0d39d6, type: 3}
+  <DamageAmount>k__BackingField: 100000
+  <Speed>k__BackingField: 0.01
+  <LifeTime>k__BackingField: 0.001
+  <IsDestroyedOnHit>k__BackingField: 1

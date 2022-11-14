@@ -29,18 +29,18 @@ namespace Gameplay.Shooting
             CooldownTimer.Start();
         }
 
-        private void FireMultipleProjectiles(int count, int sprayAngle)
+        private void FireMultipleProjectiles(int count, float sprayAngle)
         {
-            int minimumAngle = -sprayAngle / 2;
-            int singlePelletAngle = sprayAngle / count;
+            var minimumAngle = -sprayAngle / 2;
+            var singlePelletAngle = sprayAngle / count;
             Random r = new Random();
 
             for (int i = 0; i < count; i++)
             {
-                int minimumPelletAngle = minimumAngle + i * singlePelletAngle;
-                int maximumPelletAngle = minimumAngle + (i + 1) * singlePelletAngle;
+                var minimumPelletAngle = minimumAngle + i * singlePelletAngle;
+                var maximumPelletAngle = minimumAngle + (i + 1) * singlePelletAngle;
 
-                int pelletAngle = RandomPicker.PickRandomBetweenTwoValues(minimumPelletAngle, maximumPelletAngle, r);
+                var pelletAngle = RandomPicker.PickRandomBetweenTwoValues(minimumPelletAngle, maximumPelletAngle, r);
                 Vector3 pelletVector = (pelletAngle + 90).ToVector3();
                 //TODO check 90 degrees turn
                 var projectile = ProjectileFactory.CreateProjectile(pelletVector);
