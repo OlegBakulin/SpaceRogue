@@ -1,8 +1,5 @@
-using Gameplay.Mechanics.Timer;
 using Gameplay.Player;
 using Scriptables.Modules;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Shooting
@@ -15,13 +12,14 @@ namespace Gameplay.Shooting
         private GameObject _gun;
         private Vector3 _endLaserPosition;
         private Vector3 _startLaserPosition;
+        private Vector3 _laserLocalScale;
         public RaycastHit2D _hit;
         CircleCollider2D _collider;
-        GameObject _rectTransform;
+        Transform _rectTransform;
         
-        bool _activeAtack = false;
-        int _timeActiveAtack = 0;
-        int _intTimeActiveAtack = 0;
+        bool _activeAtack = true;
+        bool _firstAttack = true;
+        int _timeActiveAtack;
 
         public FrontalLaserController(TurretModuleConfig config, Transform gunPointParentTransform) : base(config, gunPointParentTransform)
         {
@@ -35,7 +33,8 @@ namespace Gameplay.Shooting
             _gun = _playerTransform.GetChild(0).gameObject;
             _laser = _weaponConfig.Projectile.Prefab.gameObject.GetComponent<LineRenderer>();
             _collider = _weaponConfig.Projectile.Prefab.gameObject.GetComponent<CircleCollider2D>();
-            _rectTransform = _weaponConfig.Projectile.Prefab.gameObject;
+            _rectTransform = _weaponConfig.Projectile.Prefab.gameObject.transform;
+            _laserLocalScale = _rectTransform.localScale;
         }
          
         public override void CommenceFiring()
@@ -50,55 +49,51 @@ namespace Gameplay.Shooting
 
         private void ActiveAtackTrueOrFalse()
         {
-            if (0 == _timeActiveAtack)
+            if (_activeAtack && _timeActiveAtack <= _weaponConfig.MaxActiveTime_M * 100)
             {
                 ++_timeActiveAtack;
+                _activeAtack = false;
             }
             else
             {
-                _activeAtack = false;
-                CooldownTimer.SetMaxValue(3);
-                CooldownTimer.Start();
+                CooldownTimer.SetMaxValue(_timeActiveAtack * _weaponConfig.Koefficient_X * 0.01f);
+                _firstAttack = true;
+                _timeActiveAtack = 0;
                 EntryPoint.UnsubscribeFromUpdate(ActiveAtackTrueOrFalse);
+                CooldownTimer.Start();
             }
         }
 
         private void FireLaser()
         {
+            _activeAtack = true;
             _startLaserPosition = _gun.gameObject.transform.position;
             _endLaserPosition = _gun.gameObject.transform.TransformPoint(Vector3.up * _weaponConfig.Long_Dlina);
 
-            _rectTransform.transform.rotation = new Quaternion(0, 0, _playerTransform.rotation.z, _playerTransform.rotation.w);
+            _rectTransform.rotation = new (0, 0, _playerTransform.rotation.z, _playerTransform.rotation.w);
 
             _laser.SetPosition(0, _startLaserPosition);
             if ((_hit = Physics2D.Linecast(_startLaserPosition, _endLaserPosition)) && !(_hit.transform.gameObject.GetComponent<ProjectileView>()))
             {
-                UnityEngine.Debug.Log(_hit.collider.gameObject.name + " " + _hit.transform.position + " / " + _endLaserPosition.ToString() + " / " + _gun.transform.position.ToString() + " / " + _weaponConfig.Long_Dlina);
-
                 _laser.SetPosition(1, _hit.point);
-                _rectTransform.transform.localScale.Set(_rectTransform.transform.localScale.x, _hit.distance, 0);
+                _laserLocalScale.Set(_laserLocalScale.x, _hit.distance, 0);
             }
             else
             {
                 _laser.SetPosition(1, _endLaserPosition);
-                _rectTransform.transform.localScale.Set(_rectTransform.transform.localScale.x, _weaponConfig.Long_Dlina, 0);
+                _laserLocalScale.Set(_laserLocalScale.x, _weaponConfig.Long_Dlina, 0);
             }
+
             _collider.radius = _laser.widthMultiplier / 2;
             _collider.offset = (Vector2)(_laser.GetPosition(1) - _laser.GetPosition(0));
             var projectile = ProjectileFactory.CreateProjectile();
             AddController(projectile);
-            _timeActiveAtack = 0;
 
-            if (!_activeAtack)
+            if (_firstAttack)
             {
                 EntryPoint.SubscribeToUpdate(ActiveAtackTrueOrFalse);
-                _activeAtack = true;
+                _firstAttack = false;
             }
-
-            
-
-        
-            //CooldownTimer.Start();
         }
 
     }
