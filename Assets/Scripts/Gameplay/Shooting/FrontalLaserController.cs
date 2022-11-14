@@ -11,20 +11,18 @@ namespace Gameplay.Shooting
         private Transform _playerTransform;
         private GameObject _gun;
         private Vector3 _endLaserPosition;
-        private Vector3 _startLaserPosition;
+        private Transform _startLaserTransform;
         private Vector3 _laserLocalScale;
-        public RaycastHit2D _hit;
-        CircleCollider2D _collider;
-        Transform _rectTransform;
-        
-        bool _activeAtack = true;
-        bool _firstAttack = true;
-        int _timeActiveAtack;
+        private RaycastHit2D _hit;
+        private CircleCollider2D _collider;
+        private Transform _rectTransform;
+
+        private bool _activeAtack = true;
+        private bool _firstAttack = true;
+        private int _timeActiveAtack;
 
         public FrontalLaserController(TurretModuleConfig config, Transform gunPointParentTransform) : base(config, gunPointParentTransform)
         {
-            var _attackActive = gunPointParentTransform.gameObject.GetComponent<PlayerView>();
-            
             var laserConfig = config.SpecificWeapon as LaserWeaponConfig;
             _weaponConfig = laserConfig
                 ? laserConfig
@@ -35,6 +33,7 @@ namespace Gameplay.Shooting
             _collider = _weaponConfig.Projectile.Prefab.gameObject.GetComponent<CircleCollider2D>();
             _rectTransform = _weaponConfig.Projectile.Prefab.gameObject.transform;
             _laserLocalScale = _rectTransform.localScale;
+            _startLaserTransform = _gun.gameObject.transform;
         }
          
         public override void CommenceFiring()
@@ -67,13 +66,12 @@ namespace Gameplay.Shooting
         private void FireLaser()
         {
             _activeAtack = true;
-            _startLaserPosition = _gun.gameObject.transform.position;
-            _endLaserPosition = _gun.gameObject.transform.TransformPoint(Vector3.up * _weaponConfig.Long_Dlina);
+            _endLaserPosition = _startLaserTransform.TransformPoint(Vector3.up * _weaponConfig.Long_Dlina);
 
             _rectTransform.rotation = new (0, 0, _playerTransform.rotation.z, _playerTransform.rotation.w);
 
-            _laser.SetPosition(0, _startLaserPosition);
-            if ((_hit = Physics2D.Linecast(_startLaserPosition, _endLaserPosition)) && !(_hit.transform.gameObject.GetComponent<ProjectileView>()))
+            _laser.SetPosition(0, _startLaserTransform.position);
+            if ((_hit = Physics2D.Linecast(_startLaserTransform.position, _endLaserPosition)) && !(_hit.transform.gameObject.GetComponent<ProjectileView>()))
             {
                 _laser.SetPosition(1, _hit.point);
                 _laserLocalScale.Set(_laserLocalScale.x, _hit.distance, 0);
