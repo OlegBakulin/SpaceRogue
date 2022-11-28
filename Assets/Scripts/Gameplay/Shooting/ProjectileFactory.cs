@@ -7,7 +7,7 @@ namespace Gameplay.Shooting
         private readonly ProjectileConfig _config;
         private readonly ProjectileView _view;
         
-        private readonly Transform _projectileSpawnTransform;
+        public readonly Transform _projectileSpawnTransform;
         
         public ProjectileFactory(ProjectileConfig projectileConfig, ProjectileView view, Transform projectileSpawnTransform)
         {
