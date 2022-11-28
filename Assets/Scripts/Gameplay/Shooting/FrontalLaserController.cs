@@ -120,6 +120,5 @@ namespace Gameplay.Shooting
             _collider.enabled = true;
             _collider.offset = _laser.GetPosition(1) - _laser.GetPosition(0) - _startLaserTransform.TransformPoint(Vector3.up * 0.05f) + _startLaserTransform.position;
         }
-
     }
 }
