@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4512104498168619228}
   - component: {fileID: 4512104498168619229}
   - component: {fileID: 1286931685511058213}
-  - component: {fileID: 8108795791473140371}
+  - component: {fileID: -3472171685818290657}
+  - component: {fileID: -5788022956784413943}
   m_Layer: 0
   m_Name: LivingPlanet
   m_TagString: Untagged
@@ -98,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b36705fd4b441b6be1dca017c4ac9e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!58 &8108795791473140371
+--- !u!58 &-3472171685818290657
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,6 +112,27 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.02}
+  m_Offset: {x: -0.0038909912, y: 0.018737793}
   serializedVersion: 2
-  m_Radius: 0.35
+  m_Radius: 0.3497467
+--- !u!50 &-5788022956784413943
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4512104498168619230}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 10000
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

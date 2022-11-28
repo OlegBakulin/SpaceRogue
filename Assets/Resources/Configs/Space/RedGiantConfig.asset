@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: RedGiantConfig
   m_EditorClassIdentifier: 
   <Prefab>k__BackingField: {fileID: 4384360181799517527, guid: 741897e1e3fcd674cbd2cb3b30e737b5, type: 3}
-  <MinSize>k__BackingField: 27
-  <MaxSize>k__BackingField: 40
-  <MinPlanetCount>k__BackingField: 0
-  <MaxPlanetCount>k__BackingField: 2
-  <MinOrbit>k__BackingField: 20
-  <MaxOrbit>k__BackingField: 40
+  <MinSize>k__BackingField: 50
+  <MaxSize>k__BackingField: 150
+  <MinPlanetCount>k__BackingField: 1
+  <MaxPlanetCount>k__BackingField: 6
+  <MinOrbit>k__BackingField: 5
+  <MaxOrbit>k__BackingField: 15

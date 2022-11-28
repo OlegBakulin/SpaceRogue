@@ -1,4 +1,5 @@
 using Abstracts;
+using System;
 using UnityEngine;
 using Utilities.ResourceManagement;
 
@@ -10,17 +11,25 @@ namespace UI.Game
         public static PlayerSpeedometerView PlayerSpeedometerView { get; private set; }
 
         private readonly Canvas _mainCanvas;
+
         private Canvas _playerStatusBarCanvas;
         private Canvas _playerSpeedometerCanvas;
+        private Canvas _playerDestroyedCanvas;
+
         private PlayerStatusBarView _playerStatusBarView;
         private PlayerSpeedometerView _playerSpeedometerView;
+        private DestroyPlayerMessageView _playerDestroyedMessageView;
 
-        private readonly ResourcePath _playerStatusBarCanvasPath = new("Prefabs/Canvas/Game/StatusBarCanvas");
-        private readonly ResourcePath _playerSpeedometerCanvasPath = new("Prefabs/Canvas/Game/SpeedometerCanvas");
+        private readonly ResourcePath _playerStatusBarCanvasPath = new(Constants.Prefabs.Canvas.Game.StatusBarCanvas);
+        private readonly ResourcePath _playerSpeedometerCanvasPath = new(Constants.Prefabs.Canvas.Game.SpeedometerCanvas);
+        private readonly ResourcePath _playerDestroyedCanvasPath = new(Constants.Prefabs.Canvas.Game.DestroyPlayerCanvas);
 
-        public GameUIController(Canvas mainCanvas)
+        private Action _exitToMenu;
+
+        public GameUIController(Canvas mainCanvas, Action exitToMenu)
         {
             _mainCanvas = mainCanvas;
+            _exitToMenu = exitToMenu;
             
             AddPlayerStatusBar();
             AddPlayerSpeedometer();
@@ -40,6 +49,20 @@ namespace UI.Game
             _playerSpeedometerView = _playerSpeedometerCanvas.GetComponent<PlayerSpeedometerView>();
             PlayerSpeedometerView = _playerSpeedometerView;
             AddGameObject(_playerSpeedometerCanvas.gameObject);
+        }
+
+        protected override void OnDispose()
+        {
+            PlayerStatusBarView = null;
+            PlayerSpeedometerView = null;
+        }
+            
+        public void AddDestroyPlayerMessage()
+        {
+            _playerDestroyedCanvas = ResourceLoader.LoadPrefabAsChild<Canvas>(_playerDestroyedCanvasPath, _mainCanvas.transform);
+            _playerDestroyedMessageView = _playerDestroyedCanvas.GetComponent<DestroyPlayerMessageView>();
+            _playerDestroyedMessageView.Init(_exitToMenu);
+            AddGameObject(_playerDestroyedCanvas.gameObject);
         }
     }
 }

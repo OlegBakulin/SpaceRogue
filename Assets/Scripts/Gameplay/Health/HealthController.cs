@@ -84,6 +84,7 @@ namespace Gameplay.Health
 
             if (_healthModel is HealthWithShieldModel healthShieldModel && _statusBarView is HealthShieldStatusBarView statusShieldBar) 
                 healthShieldModel.CurrentShield.Unsubscribe(statusShieldBar.ShieldBar.UpdateValue);
+
         }
 
         private void TakeDamage(DamageModel damageModel)

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: SunStarConfig
   m_EditorClassIdentifier: 
   <Prefab>k__BackingField: {fileID: -2578164791343960300, guid: 796ce20e71d95af459b00990c646b520, type: 3}
-  <MinSize>k__BackingField: 15
-  <MaxSize>k__BackingField: 25
+  <MinSize>k__BackingField: 40
+  <MaxSize>k__BackingField: 60
   <MinPlanetCount>k__BackingField: 1
   <MaxPlanetCount>k__BackingField: 4
-  <MinOrbit>k__BackingField: 15
-  <MaxOrbit>k__BackingField: 35
+  <MinOrbit>k__BackingField: 10
+  <MaxOrbit>k__BackingField: 20

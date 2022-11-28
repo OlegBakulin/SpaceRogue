@@ -8,8 +8,8 @@ namespace UI
     {
         public Canvas MainCanvas { get; }
         
-        private readonly ResourcePath _uiCameraPath = new("Prefabs/Canvas/UICamera");
-        private readonly ResourcePath _mainCanvasPath = new("Prefabs/Canvas/MainCanvas");
+        private readonly ResourcePath _uiCameraPath = new(Constants.Prefabs.Canvas.UICamera);
+        private readonly ResourcePath _mainCanvasPath = new(Constants.Prefabs.Canvas.MainCanvas);
 
         public MainUIController(Transform uiPosition)
         {

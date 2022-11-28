@@ -11,17 +11,27 @@ namespace Abstracts
         public event Action<DamageModel> DamageTaken = (DamageModel _) => { };
 
         public void OnTriggerEnter2D(Collider2D other)
+        {   
+            CollisionEnter(other.gameObject);
+        }
+
+        public void OnCollisionEnter2D(Collision2D collision)
         {
-            var damageComponent = other.gameObject.GetComponent<IDamagingView>();
-            if (damageComponent is not null)
-            {
-                TakeDamage(damageComponent);
-            }
+            CollisionEnter(collision.gameObject);
         }
 
         public void TakeDamage(IDamagingView damageComponent)
         {
             DamageTaken(damageComponent.DamageModel);
+        }
+
+        private void CollisionEnter(GameObject go)
+        {
+            var damageComponent = go.GetComponent<IDamagingView>();
+            if (damageComponent is not null)
+            {
+                TakeDamage(damageComponent);
+            }
         }
     }
 }

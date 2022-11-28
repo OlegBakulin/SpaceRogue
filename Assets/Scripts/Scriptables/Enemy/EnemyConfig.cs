@@ -2,7 +2,7 @@ using System;
 using Abstracts;
 using Gameplay.Enemy;
 using Gameplay.Enemy.Behaviour;
-using Gameplay.Enemy.Movement;
+using Gameplay.Movement;
 using Scriptables.Health;
 using Scriptables.Modules;
 using UnityEngine;
@@ -15,7 +15,7 @@ namespace Scriptables.Enemy
         [field: SerializeField] public string Id { get; private set; } = Guid.NewGuid().ToString();
         [field: SerializeField] public EnemyView Prefab { get; private set; }
         [field: SerializeField] public TurretModuleConfig Weapon { get; private set; }
-        [field: SerializeField] public EnemyMovementConfig Movement { get; private set; }
+        [field: SerializeField] public MovementConfig Movement { get; private set; }
         [field: SerializeField] public EnemyBehaviourConfig Behaviour { get; private set; }
         [field: SerializeField] public HealthConfig Health { get; private set; }
         [field: SerializeField] public ShieldConfig Shield { get; private set; }

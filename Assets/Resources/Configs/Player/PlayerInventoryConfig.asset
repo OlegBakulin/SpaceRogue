@@ -17,4 +17,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b7c465fc8e6f3a94a9bb635d26f1a800, type: 2}
   <Turrets>k__BackingField:
   - {fileID: 11400000, guid: b774d047ca3666840a69dea21314ae6c, type: 2}
-  - {fileID: 11400000, guid: 82b66c108fb2d4f459bb0a6eed642727, type: 2}

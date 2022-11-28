@@ -11,12 +11,7 @@ namespace Gameplay.Shooting
 
         public override void CommenceFiring()
         {
-            UnityEngine.Debug.Log("Mull-gun has fired!");
-        }
-
-        public override void CoolDown()
-        {
-            UnityEngine.Debug.Log("Mull-gun is cooling down");
+            UnityEngine.Debug.Log("Null-gun has fired!");
         }
     }
 }

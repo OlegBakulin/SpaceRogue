@@ -15,4 +15,4 @@ MonoBehaviour:
   <MaximumHealth>k__BackingField: 15
   <StartingHealth>k__BackingField: 12
   <HealthRegen>k__BackingField: 1
-  <DamageImmunityFrameDuration>k__BackingField: 0.3
+  <DamageImmunityFrameDuration>k__BackingField: 0

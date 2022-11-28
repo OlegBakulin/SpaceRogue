@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57226a1ef48e6c94a9d3c5a62f4dac99, type: 3}
+  m_Name: BlasterWeaponConfig
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: bc79209c-21ef-4b45-9b21-8835ef1f5f96
+  <Cooldown>k__BackingField: 1
+  <BlasterProjectile>k__BackingField: {fileID: 11400000, guid: 0ac466bf08ce0d64296392de4a12da8d, type: 2}
+  <SprayAngle>k__BackingField: 0

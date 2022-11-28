@@ -1,4 +1,5 @@
 using Abstracts;
+using Gameplay.Mechanics.Timer;
 using Scriptables.Modules;
 using UnityEngine;
 using Utilities.ResourceManagement;
@@ -7,15 +8,14 @@ namespace Gameplay.Shooting
 {
     public abstract class FrontalTurretController : BaseController
     {
-        public bool IsOnCooldown => CooldownTimer > 0;
+        public bool IsOnCooldown => CooldownTimer.InProgress;
         
-        protected float CooldownTimer;
+        protected Timer CooldownTimer;
 
         protected readonly TurretModuleConfig Config;
         protected readonly ProjectileFactory ProjectileFactory;
 
-        private readonly ResourcePath _gunPointPrefab = new("Prefabs/Stuff/GunPoint");
-        
+        private readonly ResourcePath _gunPointPrefab = new(Constants.Prefabs.Stuff.GunPoint);
 
         public FrontalTurretController(TurretModuleConfig config, Transform gunPointParentTransform)
         {
@@ -30,29 +30,17 @@ namespace Gameplay.Shooting
             turretPoint.transform.parent = gunPointParentTransform;
             
             ProjectileFactory = new ProjectileFactory(Config.ProjectileConfig, Config.ProjectileConfig.Prefab, turretPoint.transform);
-            
-            CooldownTimer = 0.0f;
+
+            CooldownTimer = new Timer(config.SpecificWeapon.Cooldown);
             
             AddGameObject(turretPoint);
         }
 
-        public abstract void CommenceFiring();
-
-        public abstract void CoolDown();
-
-        protected void BasicCoolDown()
+        protected override void OnDispose()
         {
-            switch (CooldownTimer)
-            {
-                case 0:
-                    return;
-                case < 0:
-                    CooldownTimer = 0;
-                    return;
-                case > 0:
-                    CooldownTimer -= Time.deltaTime;
-                    return;
-            }
+            CooldownTimer.Dispose();
         }
+
+        public abstract void CommenceFiring();
     }
 }

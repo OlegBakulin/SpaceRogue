@@ -8,10 +8,10 @@ namespace Gameplay.Space
 {
     public class SpaceController : BaseController
     {
-        private readonly ResourcePath _configPath = new("Configs/Space/SpaceConfig");
+        private readonly ResourcePath _configPath = new(Constants.Configs.Space.SpaceConfig);
 
-        private readonly ResourcePath _starSpawnConfigPath = new("Configs/Space/DefaultStarSpawn");
-        private readonly ResourcePath _planetSpawnConfigPath = new("Configs/Space/DefaultPlanetSpawn");
+        private readonly ResourcePath _starSpawnConfigPath = new(Constants.Configs.Space.DefaultStarSpawn);
+        private readonly ResourcePath _planetSpawnConfigPath = new(Constants.Configs.Space.DefaultPlanetSpawn);
         private readonly SpaceObjectFactory _spaceObjectFactory;
 
         public SpaceController()

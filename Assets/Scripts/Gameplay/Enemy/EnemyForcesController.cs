@@ -10,13 +10,13 @@ namespace Gameplay.Enemy
 {
     public class EnemyForcesController : BaseController
     {
-        private readonly ResourcePath _groupSpawnConfigPath = new("Configs/Enemy/EnemySpawnConfig");
+        private readonly ResourcePath _groupSpawnConfigPath = new(Constants.Configs.Enemy.EnemySpawnConfig);
         private readonly EnemyFactory _enemyFactory;
-        private readonly PlayerView _playerView;
+        private readonly PlayerController _playerController;
 
-        public EnemyForcesController(PlayerView playerView)
+        public EnemyForcesController(PlayerController playerController)
         {
-            _playerView = playerView;
+            _playerController = playerController;
             var groupSpawnConfig = ResourceLoader.LoadObject<EnemySpawnConfig>(_groupSpawnConfigPath);
 
             _enemyFactory = new EnemyFactory(groupSpawnConfig.Enemy);
@@ -29,7 +29,7 @@ namespace Gameplay.Enemy
                 for (int i = 0; i < enemyGroupSpawn.GroupCount; i++)
                 {
                     var unitSpawnPoint = GetEmptySpawnPoint(enemyGroupSpawn.GroupSpawnPoint, unitSize, spawnCircleRadius);
-                    var enemyController = _enemyFactory.CreateEnemy(unitSpawnPoint, _playerView);
+                    var enemyController = _enemyFactory.CreateEnemy(unitSpawnPoint, _playerController);
                     AddController(enemyController);
                 }
             }

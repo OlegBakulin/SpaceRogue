@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-namespace Gameplay.Enemy.Movement
+namespace Gameplay.Movement
 {
     [Serializable]
-    public class EnemyMovementConfig
+    public class MovementConfig
     {
         [Header("Speed")] 
         [Min(0.1f)]

@@ -13,15 +13,9 @@ MonoBehaviour:
   m_Name: DefaultStarSpawn
   m_EditorClassIdentifier: 
   <WeightConfigs>k__BackingField:
-  - <Weight>k__BackingField: 500
-    <Config>k__BackingField: {fileID: 11400000, guid: 7f74e740208719b409436e0776b302fd, type: 2}
-  - <Weight>k__BackingField: 150
-    <Config>k__BackingField: {fileID: 11400000, guid: f2e5d99a7fe90f047bd089e17494b549, type: 2}
-  - <Weight>k__BackingField: 350
+  - <Weight>k__BackingField: 300
     <Config>k__BackingField: {fileID: 11400000, guid: bd987e05d66544746b27b9fef21d0eb5, type: 2}
-  <SunStarWeight>k__BackingField: 500
-  <RedGiantWeight>k__BackingField: 150
-  <WhiteDwarfWeight>k__BackingField: 350
-  <SunStarConfig>k__BackingField: {fileID: 11400000, guid: 7f74e740208719b409436e0776b302fd, type: 2}
-  <RedGiantConfig>k__BackingField: {fileID: 11400000, guid: f2e5d99a7fe90f047bd089e17494b549, type: 2}
-  <WhiteDwarfConfig>k__BackingField: {fileID: 11400000, guid: bd987e05d66544746b27b9fef21d0eb5, type: 2}
+  - <Weight>k__BackingField: 250
+    <Config>k__BackingField: {fileID: 11400000, guid: f2e5d99a7fe90f047bd089e17494b549, type: 2}
+  - <Weight>k__BackingField: 450
+    <Config>k__BackingField: {fileID: 11400000, guid: 7f74e740208719b409436e0776b302fd, type: 2}

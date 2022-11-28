@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: WhiteDwarfConfig
   m_EditorClassIdentifier: 
   <Prefab>k__BackingField: {fileID: 5519097654485216471, guid: 24d9fea718d6f4e4bad61bfe540417a2, type: 3}
-  <MinSize>k__BackingField: 5
-  <MaxSize>k__BackingField: 10
+  <MinSize>k__BackingField: 25
+  <MaxSize>k__BackingField: 50
   <MinPlanetCount>k__BackingField: 0
-  <MaxPlanetCount>k__BackingField: 3
+  <MaxPlanetCount>k__BackingField: 2
   <MinOrbit>k__BackingField: 10
-  <MaxOrbit>k__BackingField: 25
+  <MaxOrbit>k__BackingField: 20

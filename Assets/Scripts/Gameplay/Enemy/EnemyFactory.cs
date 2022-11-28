@@ -13,7 +13,7 @@ namespace Gameplay.Enemy
             _config = config;
         }
 
-        public EnemyController CreateEnemy(Vector3 spawnPosition, PlayerView playerView) => new(_config, CreateEnemyView(spawnPosition), playerView);
+        public EnemyController CreateEnemy(Vector3 spawnPosition, PlayerController playerController) => new(_config, CreateEnemyView(spawnPosition), playerController);
 
         private EnemyView CreateEnemyView(Vector3 spawnPosition) =>
             Object.Instantiate(_config.Prefab, spawnPosition, Quaternion.identity);

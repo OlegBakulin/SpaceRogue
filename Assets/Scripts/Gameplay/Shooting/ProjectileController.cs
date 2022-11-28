@@ -32,7 +32,7 @@ namespace Gameplay.Shooting
             EntryPoint.UnsubscribeFromUpdate(TickDown);
         }
 
-        private void TickDown()
+        private void TickDown(float deltaTime)
         {
             if (_remainingLifeTime <= 0)
             {
@@ -41,9 +41,9 @@ namespace Gameplay.Shooting
             }
 
             var transform = _view.transform;
-            transform.position += _movementDirection * (_config.Speed * 2 * Time.deltaTime);
+            transform.position += _movementDirection * (_config.Speed * 2 * deltaTime);
             
-            _remainingLifeTime -= Time.deltaTime;
+            _remainingLifeTime -= deltaTime;
         }
     }
 }

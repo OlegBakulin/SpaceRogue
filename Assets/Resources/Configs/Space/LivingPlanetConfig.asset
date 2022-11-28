@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: LivingPlanetConfig
   m_EditorClassIdentifier: 
   <Prefab>k__BackingField: {fileID: 1286931685511058213, guid: 1cf11efd2427add4f959a650fb34934e, type: 3}
-  <MinSpeed>k__BackingField: 2
-  <MaxSpeed>k__BackingField: 5
-  <MinSize>k__BackingField: 3
-  <MaxSize>k__BackingField: 5
-  <MinOrbit>k__BackingField: 5
-  <MaxOrbit>k__BackingField: 15
+  <MinSpeed>k__BackingField: 3
+  <MaxSpeed>k__BackingField: 8
+  <RetrogradeMovementChance>k__BackingField: 0.5
+  <MinSize>k__BackingField: 5
+  <MaxSize>k__BackingField: 8
+  <MinDamage>k__BackingField: 3
+  <MaxDamage>k__BackingField: 10

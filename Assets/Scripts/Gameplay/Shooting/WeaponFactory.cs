@@ -12,15 +12,9 @@ namespace Gameplay.Shooting
             {
                 WeaponType.None => new FrontalNullGunController(config, gunPointParentTransform),
                 WeaponType.Blaster => new FrontalBlasterController(config, gunPointParentTransform),
-                WeaponType.Shotgun =>
-                    //TODO implement
-                    new FrontalNullGunController(config, gunPointParentTransform),
-                WeaponType.Minigun =>
-                    //TODO implement
-                    new FrontalNullGunController(config, gunPointParentTransform),
-                WeaponType.Railgun =>
-                    //TODO implement
-                    new FrontalNullGunController(config, gunPointParentTransform),
+                WeaponType.Shotgun => new FrontalShotgunController(config, gunPointParentTransform),
+                WeaponType.Minigun => new FrontalMinigunController(config, gunPointParentTransform),
+                WeaponType.Railgun => new FrontalRailgunController(config, gunPointParentTransform),
                 _ => throw new ArgumentOutOfRangeException(nameof(config.WeaponType), config.WeaponType, "A not-existent weapon type is provided")
             };
         }

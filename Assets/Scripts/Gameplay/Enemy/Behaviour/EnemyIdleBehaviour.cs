@@ -1,17 +1,31 @@
 using Gameplay.Player;
+using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
 
 namespace Gameplay.Enemy.Behaviour
 {
     public class EnemyIdleBehaviour : EnemyBehaviour
     {
-        public EnemyIdleBehaviour(SubscribedProperty<EnemyState> enemyState, PlayerView playerView) : base(enemyState, playerView)
+        public EnemyIdleBehaviour(SubscribedProperty<EnemyState> enemyState,
+            EnemyView view,
+            PlayerController playerController,
+            EnemyBehaviourConfig config) : base(enemyState, view, playerController, config)
         {
         }
 
-        protected override void OnUpdate()
+        protected override void OnUpdate() { }
+
+        protected override void DetectPlayer()
         {
-            //TODO Stay idle until target found (or forever)
+            if (Vector3.Distance(View.transform.position, PlayerView.transform.position) < Config.PlayerDetectionRadius)
+            {
+                EnterCombat();
+            }
+        }
+
+        private void EnterCombat()
+        {
+            ChangeState(EnemyState.InCombat);
         }
     }
 }
