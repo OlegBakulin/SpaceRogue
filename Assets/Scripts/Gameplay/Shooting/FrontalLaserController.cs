@@ -8,12 +8,11 @@ namespace Gameplay.Shooting
     {
         private readonly LaserWeaponConfig _weaponConfig;
         private LineRenderer _laser;
-        private GameObject _laserObject;
-        private Transform _playerTransform;
-        private GameObject _gun;
-        private Vector3 _endLaserPosition;
+        private Vector2 _endLaserPosition;
         private Transform _startLaserTransform;
+        private Vector3 _startLaserPosirion;
         private RaycastHit2D _hit;
+        private Transform _gunPosition;
         private CircleCollider2D _collider;
         private Transform _rectTransform;
 
@@ -27,16 +26,13 @@ namespace Gameplay.Shooting
             _weaponConfig = laserConfig
                 ? laserConfig
                 : throw new System.Exception("Wrong config type was provided");
-            
-            _playerTransform = gunPointParentTransform;
-            _gun = _playerTransform.GetChild(0).gameObject;
-            _startLaserTransform = _gun.gameObject.transform;
 
-            _laserObject = GameObject.Instantiate<GameObject>(_weaponConfig.LaserLineRender.gameObject);
-            _laser = _laserObject.GetComponent<LineRenderer>();
+            _startLaserTransform = gunPointParentTransform;
+            _gunPosition = base.ProjectileFactory._projectileSpawnTransform.transform;
+            _laser = GameObject.Instantiate<LineRenderer>(_weaponConfig.LaserLineRender);
             _laser.enabled = false;
 
-            _collider = _weaponConfig.Projectile.Prefab.gameObject.GetComponent<CircleCollider2D>();
+            _collider = _weaponConfig.ProjectileCollider;
             _rectTransform = _weaponConfig.Projectile.Prefab.gameObject.transform;
             _collider.radius = _laser.widthMultiplier / 2;
         }
@@ -51,28 +47,6 @@ namespace Gameplay.Shooting
             FireLaser();
         }
 
-        private void ActiveAtackTrueOrFalse()
-        {
-            if (_activeAtack && _timeActiveAtack <= _weaponConfig.MaxLaserActiveTime * 100)
-            {
-                ++_timeActiveAtack;
-                _activeAtack = false;
-                _collider.offset = (Vector2)(_laser.GetPosition(1) - _laser.GetPosition(0));
-                _collider.enabled = true;
-                var projectile = ProjectileFactory.CreateProjectile();
-                AddController(projectile);
-            }
-            else
-            {
-                CooldownTimer.SetMaxValue(_timeActiveAtack * _weaponConfig.KoefficientTimeColldown * 0.01f);
-                _firstAttack = true;
-                _timeActiveAtack = 0;
-                EntryPoint.UnsubscribeFromUpdate(ActiveAtackTrueOrFalse);
-                _laser.enabled = false;
-                CooldownTimer.Start();
-            }
-        }
-
         private void FireLaser()
         {
             if (_firstAttack)
@@ -82,33 +56,70 @@ namespace Gameplay.Shooting
                 _laser.enabled = true;
             }
 
-            _endLaserPosition = _startLaserTransform.TransformPoint(Vector3.up * _weaponConfig.LaserLong);
-            _activeAtack = true;
-            _collider.enabled = false;
+            UpdatedLaserPrivateAttributes();
 
-            _rectTransform.rotation = new(0, 0, _playerTransform.rotation.z, _playerTransform.rotation.w);
+            FindedHit();
+        }
 
-            _laser.SetPosition(0, _startLaserTransform.position);
-
-            if (!NewHit())
+        private void FindedHit()
+        {
+            if ((_hit = Physics2D.Linecast(_startLaserPosirion, _endLaserPosition)) 
+                && !_hit.transform.gameObject.GetComponent<ProjectileView>())
+            {
+                _laser.SetPosition(1, _hit.point);
+            }
+            else
             {
                 _laser.SetPosition(1, _endLaserPosition);
             }
         }
 
-        private bool NewHit()
+        private void ActiveAtackTrueOrFalse()
         {
-            for (int i = 1; i <= 10; i++)
+            if (_activeAtack && _timeActiveAtack <= _weaponConfig.MaxLaserActiveTime * 100)
             {
-                if ((_hit = Physics2D.Linecast(_startLaserTransform.position, _startLaserTransform.TransformPoint(Vector3.up * _weaponConfig.LaserLong / 10 * i) )) && !(_hit.transform.gameObject.GetComponent<ProjectileView>()))
-                {
-                    _laser.SetPosition(1, _hit.point);
-                    return true;
-                }
+                ++_timeActiveAtack;
+                ActivateAttackProjectle();
             }
-            return false;
+            else
+            {
+                UpdatedCooldownTimerAndStopAttack();
+                CooldownTimer.Start();
+            }
         }
 
+        private void UpdatedCooldownTimerAndStopAttack()
+        {
+                CooldownTimer.SetMaxValue(_timeActiveAtack * _weaponConfig.KoefficientTimeColldown * 0.01f);
+                _firstAttack = true;
+                _timeActiveAtack = 0;
+                EntryPoint.UnsubscribeFromUpdate(ActiveAtackTrueOrFalse);
+                _laser.enabled = false;
+        }
+
+        private void ActivateAttackProjectle()
+        {
+            _activeAtack = false;
+            UpdatedConfigsProjectleCollider();
+            ProjectileController projectile = ProjectileFactory.CreateProjectile();
+            AddController(projectile);
+        }
+
+        private void UpdatedLaserPrivateAttributes()
+        {
+            _startLaserPosirion = _startLaserTransform.TransformPoint(_gunPosition.localPosition);
+            _endLaserPosition = _startLaserTransform.TransformPoint(Vector3.up * _weaponConfig.LaserLong);
+            _activeAtack = true;
+            _collider.enabled = false;
+            _rectTransform.rotation = new(0, 0, _startLaserTransform.rotation.z, _startLaserTransform.rotation.w);
+            _laser.SetPosition(0, _startLaserPosirion);
+        }
+
+        private void UpdatedConfigsProjectleCollider()
+        {
+            _collider.enabled = true;
+            _collider.offset = _laser.GetPosition(1) - _laser.GetPosition(0) - _startLaserTransform.TransformPoint(Vector3.up * 0.05f) + _startLaserTransform.position;
+        }
 
     }
 }
